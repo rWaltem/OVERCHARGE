@@ -185,8 +185,8 @@ public class ShipManager : MonoBehaviour
 
             // ship height PID control
             float error = shipHeight - hit.distance;
-            integral += error * Time.fixedDeltaTime; // integral
-            float derivative = (error - lastError) / Time.fixedDeltaTime; // derivative
+            integral += error * Time.fixedDeltaTime; // i term
+            float derivative = (error - lastError) / Time.fixedDeltaTime; // d term
             lastError = error;
             float correctingForce = Kp * error + Ki * integral + kD * derivative; //PID output
 
@@ -198,7 +198,7 @@ public class ShipManager : MonoBehaviour
             AddThrust();
 
             // check for boost pad
-            if (hit.transform.gameObject.layer == 6){ // change 6 to "Boost Pad" at some point
+            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Charge Pad")){
                 UpdateCharge();
             }
             
