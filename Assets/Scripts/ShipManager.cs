@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class ShipManager : MonoBehaviour
 {
+    [Header("Modifiers")]
+    public float maxChargeMod = 100;
+    public float thrustMod = 200;
+
     [Header("Selection")]
     public CharacterData currentCharacter;
     public ShipData currentShip;
@@ -78,7 +82,7 @@ public class ShipManager : MonoBehaviour
         accel        = currentShip.accel;
         weight       = currentShip.weight;
         handling     = currentShip.handling;
-        maxCharge    = currentShip.maxCharge;
+        maxCharge    = currentShip.maxCharge * maxChargeMod;
         rechargeRate = currentShip.rechargeRate;
 
         // models
@@ -119,6 +123,16 @@ public class ShipManager : MonoBehaviour
     /* Controls charge stuff */
     void UpdateCharge()
     {
+        Debug.Log("On boost pad");
+
+        // charge ship
+        if (currentCharge < maxCharge) {
+            currentCharge += rechargeRate;
+
+            // lock to max charge
+            if (currentCharge > maxCharge) currentCharge = maxCharge;
+        }
+
         // update shit here mate
         // like raycast
         // and current charge
@@ -148,7 +162,9 @@ public class ShipManager : MonoBehaviour
             thrust = 0;
         }
 
-        thrust *= 200;
+        thrust *= thrustMod;
+
+        // TODO: if player is boosting, give them extra thrust
 
         rb.AddForce(transform.forward * thrust);
     }
@@ -181,7 +197,11 @@ public class ShipManager : MonoBehaviour
             // thrusting logic
             AddThrust();
 
-            //Debug.Log($"Distance from ground: {hit.distance}");
+            // check for boost pad
+            if (hit.transform.gameObject.layer == 6){ // change 6 to "Boost Pad" at some point
+                UpdateCharge();
+            }
+            
         } else
         {
             Debug.DrawRay(transform.position, -transform.up, Color.red);
