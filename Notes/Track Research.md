@@ -1,0 +1,7 @@
+- Different meshes for each turn??
+- Hit boxes track each other and connect to prev box
+	- Maybe use spline?
+- draw spline ON surface using unity splines??
+	- then use spline mesh for boost panels
+- Different mesh for surrounding terrain
+- Keep it low-poly
