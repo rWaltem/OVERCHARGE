@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SpeedLoopTrack
   m_EditorClassIdentifier: Assembly-CSharp::TrackData
   trackName: Speed Loop
-  laps: 6
+  laps: 3
   length: -1
   type: speed
   trackPrefab: {fileID: 0}

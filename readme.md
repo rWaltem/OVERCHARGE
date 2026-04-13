@@ -9,8 +9,8 @@ OVERCHARGE is a fast-paced arcade racing game inspired by F-Zero GX and Mario Ka
 - (x) Dev track
 - (x) Dev ship
 - (x) Simple driving physics
-- ( ) Ship Charge
-- ( ) Boosting
+- (x) Ship Charge
+- (~) Boosting
 - ( ) Tricks
 - ( ) Track Gates
 - ( ) Lap Timer

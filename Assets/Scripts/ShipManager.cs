@@ -1,12 +1,14 @@
 using System.Reflection.Emit;
 using Unity.Mathematics;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class ShipManager : MonoBehaviour
 {
     [Header("Modifiers")]
     public float maxChargeMod = 100;
-    public float thrustMod = 200;
+    public float rechargeRateMod = 1.25f;
+    public float thrustMod = 150;
 
     [Header("Selection")]
     public CharacterData currentCharacter;
@@ -83,7 +85,7 @@ public class ShipManager : MonoBehaviour
         weight       = currentShip.weight;
         handling     = currentShip.handling;
         maxCharge    = currentShip.maxCharge * maxChargeMod;
-        rechargeRate = currentShip.rechargeRate;
+        rechargeRate = currentShip.rechargeRate * rechargeRateMod;
 
         // models
         characterModelPrefab = currentCharacter.characterModelPrefab;
@@ -105,7 +107,6 @@ public class ShipManager : MonoBehaviour
         Debug.Log("Stats read and set from player selection");
 
         rb = GetComponent<Rigidbody>();
-        //Debug.Log("Got rigidbody");
 
         trackLayerMask = LayerMask.NameToLayer("Drivable");
     }
@@ -132,12 +133,31 @@ public class ShipManager : MonoBehaviour
             // lock to max charge
             if (currentCharge > maxCharge) currentCharge = maxCharge;
         }
+    }
 
-        // update shit here mate
-        // like raycast
-        // and current charge
-        // and recharge
-        // and boost
+    float Boost()
+    {
+        // for now, for as long as the player has the boost button pressed, they will get a speed boost
+        // but eventually it will be a timed boosted
+
+        // boost will be derived from the speed stat
+        // bigger the boost, more charge it uses
+
+        // check if has charge to boost
+
+        // FIXME: NOT EFFICENT HERE, DO THIS ON START/AWAKE 
+        // derive boost % from speed stat
+        float boostPercent = speed / 10;
+
+        float boostCost = boostPercent * 10; // aka 2/10 speed will be 2 charge per frame
+
+        // if there is not enough charge, don't boost --might remove in favor of letting the player explode themselves
+        if (currentCharge < boostCost) return 1;
+
+        // decrease charge amount
+        currentCharge -= boostCost;
+
+        return 1 + boostPercent; // as a percent
     }
 
     void AddThrust()
@@ -155,9 +175,12 @@ public class ShipManager : MonoBehaviour
             thrust = 0;
         }
 
-        thrust *= thrustMod;
-
         // TODO: if player is boosting, give them extra thrust
+        float boostThrust = 1;
+        if (boostInput) boostThrust = Boost();
+
+        thrust *= thrustMod * boostThrust;
+        Debug.Log(thrust);
 
         rb.AddForce(transform.forward * thrust);
     }
