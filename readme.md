@@ -58,6 +58,7 @@ OVERCHARGE is a fast-paced arcade racing game inspired by F-Zero GX and Mario Ka
 - Player gets stuck on walls
 - Internal charge variables are floats when they should be integers
 - Boost is based on if player is pressing boost button intead of timer (add boost timer logic)
+- Charge pad model is too thin, make it 3d
 
 ## Movement
 
