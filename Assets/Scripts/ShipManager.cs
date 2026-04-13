@@ -123,7 +123,7 @@ public class ShipManager : MonoBehaviour
     /* Controls charge stuff */
     void UpdateCharge()
     {
-        Debug.Log("On boost pad");
+        //Debug.Log("On boost pad");
 
         // charge ship
         if (currentCharge < maxCharge) {
@@ -188,7 +188,7 @@ public class ShipManager : MonoBehaviour
             integral += error * Time.fixedDeltaTime; // i term
             float derivative = (error - lastError) / Time.fixedDeltaTime; // d term
             lastError = error;
-            float correctingForce = Kp * error + Ki * integral + kD * derivative; //PID output
+            float correctingForce = Kp * error + Ki * integral + kD * derivative; // PID output
 
             //apply pid force
             Vector3 liftDirection = hit.normal;
