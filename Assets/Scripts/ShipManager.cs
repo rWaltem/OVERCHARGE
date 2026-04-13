@@ -151,6 +151,7 @@ public class ShipManager : MonoBehaviour
 
         float boostCost = boostPercent * 10; // aka 2/10 speed will be 2 charge per frame
 
+        // FIXME: set boost on a timer instead of button press
         // if there is not enough charge, don't boost --might remove in favor of letting the player explode themselves
         if (currentCharge < boostCost) return 1;
 
@@ -175,7 +176,6 @@ public class ShipManager : MonoBehaviour
             thrust = 0;
         }
 
-        // TODO: if player is boosting, give them extra thrust
         float boostThrust = 1;
         if (boostInput) boostThrust = Boost();
 
