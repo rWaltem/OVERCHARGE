@@ -140,13 +140,6 @@ public class ShipManager : MonoBehaviour
         // and boost
     }
 
-    /* Update is called every frame */
-    void Update()
-    {
-        shipModel.transform.localPosition = shipModelTargetLocalPosition;
-        shipModel.transform.localRotation = shipModelTargetLocalRotation;
-    }
-
     void AddThrust()
     {
         float thrust;
@@ -212,5 +205,12 @@ public class ShipManager : MonoBehaviour
         // rotate ship with steering input
         transform.Rotate(0f, steeringInput * (handling * 20) * Time.deltaTime, 0f, Space.Self);
 
+    }
+
+    /* Update is called every frame */
+    void Update()
+    {
+        shipModel.transform.localPosition = shipModelTargetLocalPosition;
+        shipModel.transform.localRotation = shipModelTargetLocalRotation;
     }
 }
