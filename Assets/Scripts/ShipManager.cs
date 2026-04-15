@@ -197,7 +197,9 @@ public class ShipManager : MonoBehaviour
         {            
             // rotate ship to follow track normal
             Quaternion targetRot = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRot, 0.15f);
+            
+            Quaternion newRotation = Quaternion.Lerp(rb.rotation, targetRot, 0.15f);
+            rb.MoveRotation(newRotation);
 
             // ship height PID control
             float error = shipHeight - hit.distance;
@@ -208,7 +210,7 @@ public class ShipManager : MonoBehaviour
 
             //apply pid force
             Vector3 liftDirection = hit.normal;
-            rb.AddForce(liftDirection * correctingForce, ForceMode.Force);
+            rb.AddForce(liftDirection * correctingForce, ForceMode.Acceleration);
 
             // thrusting logic
             AddThrust();
@@ -226,8 +228,8 @@ public class ShipManager : MonoBehaviour
         }
 
         // rotate ship with steering input
-        transform.Rotate(0f, steeringInput * (handling * 20) * Time.deltaTime, 0f, Space.Self);
-
+        Quaternion steerRotation = Quaternion.Euler(0f, steeringInput * (handling * 20) * Time.fixedDeltaTime, 0f);
+        rb.MoveRotation(rb.rotation * steerRotation);
     }
 
     /* Update is called every frame */
