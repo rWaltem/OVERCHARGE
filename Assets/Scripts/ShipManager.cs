@@ -42,6 +42,11 @@ public class ShipManager : MonoBehaviour
     public float currentCharge;
     public float boostAmount;
     public bool isGrounded;
+    public LayerMask trackLayerMask;
+    public LayerMask chargePadLayerMask;
+    public float boostDuration = 3f; // how long boost last
+    public float boostCost = 50f; // cost per activation
+    
 
     [Header("Inputs")]
     public float throttleInput;
@@ -53,7 +58,10 @@ public class ShipManager : MonoBehaviour
     /* PRIVATE VARIABLES */
     private GameObject shipModel;
     private Rigidbody rb;
-    private LayerMask trackLayerMask;
+    private bool isBoosting = false;
+    private float boostTimer = 0f;
+    private float boostMultiplier;
+    private bool lastBoostInput; // for button press detection
 
     // PID height
     private float shipHeight = 2.5f;
@@ -109,6 +117,9 @@ public class ShipManager : MonoBehaviour
         rb = GetComponent<Rigidbody>();
 
         trackLayerMask = LayerMask.NameToLayer("Drivable");
+
+        // derive boost multiplier from speed stat
+        boostMultiplier = 1f + (speed / 10f);
     }
 
     /* Start is called just before any of the Update methods is called the first time */
@@ -135,30 +146,22 @@ public class ShipManager : MonoBehaviour
         }
     }
 
-    float Boost()
+    void TryBoost()
     {
-        // for now, for as long as the player has the boost button pressed, they will get a speed boost
-        // but eventually it will be a timed boosted
+        if (isBoosting) return;
+        if (currentCharge < boostCost) return;
 
-        // boost will be derived from the speed stat
-        // bigger the boost, more charge it uses
-
-        // check if has charge to boost
-
-        // FIXME: NOT EFFICENT HERE, DO THIS ON START/AWAKE 
-        // derive boost % from speed stat
-        float boostPercent = speed / 10;
-
-        float boostCost = boostPercent * 10; // aka 2/10 speed will be 2 charge per frame
-
-        // FIXME: set boost on a timer instead of button press
-        // if there is not enough charge, don't boost --might remove in favor of letting the player explode themselves
-        if (currentCharge < boostCost) return 1;
-
-        // decrease charge amount
         currentCharge -= boostCost;
 
-        return 1 + boostPercent; // as a percent
+        isBoosting = true;
+        boostTimer = boostDuration;
+    }
+
+    float GetSpeedMultiplier()
+    {
+        if (!isBoosting) return 1f;
+
+        return boostMultiplier;
     }
 
     void AddThrust()
@@ -176,8 +179,7 @@ public class ShipManager : MonoBehaviour
             thrust = 0;
         }
 
-        float boostThrust = 1;
-        if (boostInput) boostThrust = Boost();
+        float boostThrust = GetSpeedMultiplier();
 
         thrust *= thrustMod * boostThrust;
         Debug.Log(thrust);
@@ -195,6 +197,8 @@ public class ShipManager : MonoBehaviour
 
         if (Physics.Raycast(transform.position, -transform.up, out hit, 6))
         {            
+            isGrounded = true;
+
             // rotate ship to follow track normal
             Quaternion targetRot = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
             
@@ -222,6 +226,8 @@ public class ShipManager : MonoBehaviour
             
         } else
         {
+            isGrounded = false;
+
             Debug.DrawRay(transform.position, -transform.up, Color.red);
             rb.linearDamping = 0;
             rb.AddForce(Vector3.down * 78);
@@ -235,6 +241,23 @@ public class ShipManager : MonoBehaviour
     /* Update is called every frame */
     void Update()
     {
+        // detect button press (not hold)
+        if (boostInput && !lastBoostInput)
+        {
+            TryBoost();
+        }
+        lastBoostInput = boostInput;
+
+        if (isBoosting)
+        {
+            boostTimer -= Time.deltaTime;
+
+            if (boostTimer <= 0f)
+            {
+                isBoosting = false;
+            }
+        }
+
         shipModel.transform.localPosition = shipModelTargetLocalPosition;
         shipModel.transform.localRotation = shipModelTargetLocalRotation;
     }
