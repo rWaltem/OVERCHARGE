@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d15cf3e09a736ad4fb5be621b82a5b5f, type: 3}
+  m_Name: GlobalShipModifiers
+  m_EditorClassIdentifier: Assembly-CSharp::GlobalShipModifiers
+  recoverySpeedMod: 0.5
+  speedMod: 75
+  accelMod: 75
+  weightMod: 1
+  handlingMod: 8
+  maxChargeMod: 100
+  rechargeRateMod: 75
+  matchingBoostMod: 1
+  specialtyBoostMod: 1
+  boostDuration: 2.5
+  boostCost: 100

@@ -1,28 +1,28 @@
 {
   "main": {
-    "id": "36d14d5a138ba061",
+    "id": "d8ef7766b9ead2ee",
     "type": "split",
     "children": [
       {
-        "id": "236bb939b872f83e",
+        "id": "ab6ed47107024d42",
         "type": "tabs",
         "children": [
           {
-            "id": "6cf2e7c349758391",
+            "id": "c585a06e9c37e071",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Track Research.md",
+                "file": "readme.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Track Research"
+              "title": "readme"
             }
           },
           {
-            "id": "13679a8cbd9a7114",
+            "id": "13d8eb9747c8dbd2",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -35,22 +35,21 @@
               "title": "Track Research"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
   },
   "left": {
-    "id": "2667656bed2d877b",
+    "id": "a0a396a829d14f70",
     "type": "split",
     "children": [
       {
-        "id": "b2e15054e3d20253",
+        "id": "92746260a5f00bce",
         "type": "tabs",
         "children": [
           {
-            "id": "61c9319ea4df6ccb",
+            "id": "d5d4dc70bc13f564",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -63,7 +62,7 @@
             }
           },
           {
-            "id": "cb9873020970016c",
+            "id": "dc34572af0ec842a",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -80,7 +79,7 @@
             }
           },
           {
-            "id": "dda034e91ab0fc0e",
+            "id": "5bb9489df3a80bcf",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -93,23 +92,24 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
-    "id": "d753e88f092cedda",
+    "id": "b0617276083d7c7f",
     "type": "split",
     "children": [
       {
-        "id": "85e9836df5989adc",
+        "id": "c373f81b6822dde1",
         "type": "tabs",
         "children": [
           {
-            "id": "d269041a43ee7339",
+            "id": "520e59bd74c1195a",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Track Research.md",
+                "file": "readme.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -119,25 +119,25 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Track Research"
+              "title": "Backlinks for readme"
             }
           },
           {
-            "id": "18597ec0a4a4dbdb",
+            "id": "2356b06573e1cc0f",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Track Research.md",
+                "file": "readme.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from Track Research"
+              "title": "Outgoing links from readme"
             }
           },
           {
-            "id": "3ff9a79ff5ab2df5",
+            "id": "7b02f10239a87b36",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -152,7 +152,7 @@
             }
           },
           {
-            "id": "0aa717f827e0aadb",
+            "id": "189404b0a6062fdb",
             "type": "leaf",
             "state": {
               "type": "all-properties",
@@ -166,18 +166,18 @@
             }
           },
           {
-            "id": "bf548aa7ec921902",
+            "id": "5f058d09479dd4fa",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "Track Research.md",
+                "file": "readme.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Track Research"
+              "title": "Outline of readme"
             }
           }
         ]
@@ -198,9 +198,22 @@
       "bases:Create new base": false
     }
   },
-  "active": "13679a8cbd9a7114",
+  "active": "c585a06e9c37e071",
   "lastOpenFiles": [
-    "Untitled.md",
-    "Track Research.md"
+    "Temp/obj/Assembly-CSharp/Assembly-CSharp.GeneratedMSBuildEditorConfig.editorconfig",
+    "Temp/obj/Assembly-CSharp/Assembly-CSharp.csproj.AssemblyReference.cache",
+    "Temp/obj/Dreamteck.Splines.Editor/Dreamteck.Splines.Editor.GeneratedMSBuildEditorConfig.editorconfig",
+    "Temp/obj/Dreamteck.Splines.Editor/Dreamteck.Splines.Editor.csproj.AssemblyReference.cache",
+    "Temp/obj/Dreamteck.Utilities/Dreamteck.Utilities.GeneratedMSBuildEditorConfig.editorconfig",
+    "Temp/obj/Dreamteck.Utilities/Dreamteck.Utilities.csproj.AssemblyReference.cache",
+    "Temp/obj/Dreamteck.Utilities",
+    "Temp/obj/Dreamteck.Utilities.Editor/Dreamteck.Utilities.Editor.GeneratedMSBuildEditorConfig.editorconfig",
+    "Temp/obj/Dreamteck.Utilities.Editor/Dreamteck.Utilities.Editor.csproj.AssemblyReference.cache",
+    "Temp/obj/Dreamteck.Utilities.Editor",
+    "Temp/obj/Dreamteck.Splines.Editor",
+    "Track Research.md",
+    "readme.md",
+    "Imports/Charge Pad Texture.png",
+    "Assets/Credits.md"
   ]
 }

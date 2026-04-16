@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46cd04193884e694c8aa7fc007552685, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  globalMods: {fileID: 11400000, guid: 0b037a934b4aed24c82c3dd4aee9be8d, type: 2}
   currentCharacter: {fileID: 11400000, guid: 798af30ba9f295942affdab1b67a6abd, type: 2}
   currentShip: {fileID: 11400000, guid: 8803c57a85d103a4baea7c66860c79a6, type: 2}
   currentTrack: {fileID: 11400000, guid: 2e14a7c93b75797479971780a50394f7, type: 2}
@@ -117,6 +118,15 @@ MonoBehaviour:
   currentCharge: 0
   boostAmount: 0
   isGrounded: 0
+  trackLayerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  chargePadLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  boostDuration: 2.5
+  boostCost: 50
+  isJammed: 0
   throttleInput: 0
   brakeInput: 0
   steeringInput: 0

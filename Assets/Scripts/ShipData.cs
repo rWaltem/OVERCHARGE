@@ -17,6 +17,7 @@ public class ShipData : ScriptableObject
     public int maxCharge;
     public int rechargeRate;
     public string specialty = "n/a";
+    public float boostSpeed;
 
     [Header("Model")]
     public GameObject shipModelPrefab;

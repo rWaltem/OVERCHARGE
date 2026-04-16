@@ -20,5 +20,6 @@ MonoBehaviour:
   maxCharge: 5
   rechargeRate: 5
   specialty: n/a
+  boostSpeed: 1.5
   shipModelPrefab: {fileID: 6731029791116436404, guid: bf7c0cdd029f3310a92c4fce6ccd14dc, type: 3}
   shipModelScaleFactor: {x: 2, y: 1, z: 4}
