@@ -10,16 +10,19 @@ public class MainMenu : MonoBehaviour
 
     public void Singleplayer()
     {
+        Debug.Log("Singleplayer");
         SceneManager.LoadScene(singleplayerSceneName);
     }
 
     public void Multiplayer()
     {
+        Debug.Log("Multiplayer");
         SceneManager.LoadScene(multiplayerSceneName);
     }
 
     public void Quit()
     {
+        Debug.Log("Quitting");
         Application.Quit();
     }
 }
