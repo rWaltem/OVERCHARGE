@@ -301,7 +301,7 @@ public class ShipManager : MonoBehaviour
             currentCharge = 1f;
         }
 
-        Debug.Log($"Recovery Time: {recoveryTime}");
+        //Debug.Log($"Recovery Time: {recoveryTime}");
     }
 
     /* Update is called every frame */
