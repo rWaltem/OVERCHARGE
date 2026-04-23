@@ -62,7 +62,7 @@ public class ShipManager : MonoBehaviour
     private float boostSpeed;
     private bool lastBoostInput;
     private float recoveryTime;
-    private float currentSpeed = 0f;
+    public float currentSpeed = 0f;
     private float currentSteer = 0f;
     private bool isCharging = false;
     private int chargeContacts;
