@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
     public ShipManager playerShipManager;
     public Slider chargeSlider;
     public TextMeshProUGUI speedText;
+    public TextMeshProUGUI racePos;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
