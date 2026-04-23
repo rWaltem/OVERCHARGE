@@ -22,4 +22,5 @@ public class ShipData : ScriptableObject
     [Header("Model")]
     public GameObject shipModelPrefab;
     public Vector3 shipModelScaleFactor;
+    public Sprite icon;
 }

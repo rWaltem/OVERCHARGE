@@ -221,7 +221,7 @@ public class ShipManager : MonoBehaviour
 
         // move current speed toward target speed
         currentSpeed = Mathf.MoveTowards(currentSpeed, targetSpeed, accelThisFrame);
-        Debug.Log($"Current Speed: {currentSpeed}");
+        //Debug.Log($"Current Speed: {currentSpeed}");
 
         Vector3 velocity = transform.forward * currentSpeed;
 

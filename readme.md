@@ -59,6 +59,17 @@ OVERCHARGE is a fast-paced arcade racing game inspired by F-Zero GX and Mario Ka
 - ( ) Polish areas when it needs polish
 - ( ) Release 1.0
 
+## Menu
+
+### Character Selection
+Grid selection to the left with the model of the character on the right
+### Ship Selection
+![[IMG_5764.png]]
+
+## Loading
+Racing Scene
+Track and details are a prefab
+Game manager (which also controls the timer) will load the prefab
 ## Movement
 
 ### Air control
@@ -150,7 +161,7 @@ Track has only one drivable side, aka not a mobius loop
 
 - Skill (Recovery Speed)
 
-## Hidden stats
+### Hidden stats
 
 - Specialty
 
