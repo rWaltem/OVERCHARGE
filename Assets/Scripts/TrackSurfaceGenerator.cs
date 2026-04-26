@@ -21,7 +21,7 @@ public class TrackSurfaceGenerator : MonoBehaviour
     {
         if (!splineContainer)
         {
-            splineContainer = gameObject.GetComponent<SplineContainer>();
+            splineContainer = GetComponent<SplineContainer>();
 
             if (!splineContainer)
             {
@@ -33,6 +33,9 @@ public class TrackSurfaceGenerator : MonoBehaviour
     public void GenerateMesh()
     {
         if (splineContainer == null) return;
+
+        Spline spline = splineContainer.Spline;
+        bool closed = spline.Closed;
 
         if (mesh == null)
         {
@@ -46,15 +49,17 @@ public class TrackSurfaceGenerator : MonoBehaviour
 
         GetComponent<MeshFilter>().sharedMesh = mesh;
 
-        int vertCount = (resolution + 1) * 2;
+        int pointCount = closed ? resolution : resolution + 1;
+        int vertCount = pointCount * 2;
 
         Vector3[] vertices = new Vector3[vertCount];
         Vector2[] uvs = new Vector2[vertCount];
-        int[] triangles = new int[resolution * 6];
 
-        Spline spline = splineContainer.Spline;
+        int segmentCount = closed ? resolution : resolution;
+        int[] triangles = new int[segmentCount * 6];
 
-        for (int i = 0; i <= resolution; i++)
+        // --- Generate vertices ---
+        for (int i = 0; i < pointCount; i++)
         {
             float t = i / (float)resolution;
 
@@ -62,29 +67,37 @@ public class TrackSurfaceGenerator : MonoBehaviour
             Vector3 tangent = ((Vector3)spline.EvaluateTangent(t)).normalized;
             Vector3 up = ((Vector3)spline.EvaluateUpVector(t)).normalized;
 
-            // Stable orientation that respects spline twist
             Vector3 right = Vector3.Cross(up, tangent).normalized;
 
-            int vertIndex = i * 2;
+            int vi = i * 2;
 
-            vertices[vertIndex] = position - right * width * 0.5f;
-            vertices[vertIndex + 1] = position + right * width * 0.5f;
+            vertices[vi] = position - right * width * 0.5f;
+            vertices[vi + 1] = position + right * width * 0.5f;
 
-            uvs[vertIndex] = new Vector2(0, t);
-            uvs[vertIndex + 1] = new Vector2(1, t);
+            uvs[vi] = new Vector2(0, t);
+            uvs[vi + 1] = new Vector2(1, t);
+        }
 
-            if (i < resolution)
-            {
-                int triIndex = i * 6;
+        // --- Generate triangles ---
+        int ti = 0;
 
-                triangles[triIndex] = vertIndex;
-                triangles[triIndex + 1] = vertIndex + 2;
-                triangles[triIndex + 2] = vertIndex + 1;
+        for (int i = 0; i < segmentCount; i++)
+        {
+            int next = i + 1;
 
-                triangles[triIndex + 3] = vertIndex + 1;
-                triangles[triIndex + 4] = vertIndex + 2;
-                triangles[triIndex + 5] = vertIndex + 3;
-            }
+            if (closed)
+                next %= pointCount;
+
+            int vi = i * 2;
+            int viNext = next * 2;
+
+            triangles[ti++] = vi;
+            triangles[ti++] = viNext;
+            triangles[ti++] = vi + 1;
+
+            triangles[ti++] = vi + 1;
+            triangles[ti++] = viNext;
+            triangles[ti++] = viNext + 1;
         }
 
         mesh.vertices = vertices;
