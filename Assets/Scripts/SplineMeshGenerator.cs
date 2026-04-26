@@ -17,19 +17,6 @@ public class SplineMeshGenerator : MonoBehaviour
 
     private Mesh mesh;
 
-    void Awake()
-    {
-        if (!splineContainer)
-        {
-            splineContainer = GetComponent<SplineContainer>();
-
-            if (!splineContainer)
-            {
-                Debug.LogError("No SplineContainer found on this GameObject.");
-            }
-        }
-    }
-
     public void GenerateMesh()
     {
         if (splineContainer == null) return;
@@ -106,5 +93,13 @@ public class SplineMeshGenerator : MonoBehaviour
 
         mesh.RecalculateNormals();
         mesh.RecalculateBounds();
+
+        // Update MeshCollider if it exists
+        MeshCollider meshCollider = GetComponent<MeshCollider>();
+        if (meshCollider != null)
+        {
+            meshCollider.sharedMesh = null;   // force refresh
+            meshCollider.sharedMesh = mesh;
+        }
     }
 }
