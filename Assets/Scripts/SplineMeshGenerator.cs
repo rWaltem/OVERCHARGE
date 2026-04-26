@@ -7,7 +7,7 @@ using UnityEditor;
 
 [ExecuteAlways]
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
-public class TrackSurfaceGenerator : MonoBehaviour
+public class SplineMeshGenerator : MonoBehaviour
 {
     public SplineContainer splineContainer;
 

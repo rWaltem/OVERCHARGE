@@ -2,14 +2,14 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(TrackSurfaceGenerator))]
-public class TrackSurfaceGeneratorEditor : Editor
+[CustomEditor(typeof(SplineMeshGenerator))]
+public class SplineMeshGeneratorEditor : Editor
 {
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
 
-        TrackSurfaceGenerator gen = (TrackSurfaceGenerator)target;
+        SplineMeshGenerator gen = (SplineMeshGenerator)target;
 
         if (GUILayout.Button("Generate Track Mesh"))
         {
