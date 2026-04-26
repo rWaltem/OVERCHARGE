@@ -8,7 +8,8 @@ OVERCHARGE is a fast-paced arcade racing game inspired by F-Zero GX and Mario Ka
 - Player gets stuck on walls
 - Remove bottom face of charge pad model
 ## Next Steps
-- Basic UI
+- Gates
+- Look into making procedural tracks
 ## Development Path
 
 ### First full through line (Pre-Alpha)
