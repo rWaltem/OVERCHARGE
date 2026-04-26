@@ -58,7 +58,7 @@ public class TrackSurfaceGenerator : MonoBehaviour
         int segmentCount = closed ? resolution : resolution;
         int[] triangles = new int[segmentCount * 6];
 
-        // --- Generate vertices ---
+        // Generate vertices
         for (int i = 0; i < pointCount; i++)
         {
             float t = i / (float)resolution;
@@ -78,7 +78,7 @@ public class TrackSurfaceGenerator : MonoBehaviour
             uvs[vi + 1] = new Vector2(1, t);
         }
 
-        // --- Generate triangles ---
+        // Generate triangles
         int ti = 0;
 
         for (int i = 0; i < segmentCount; i++)
