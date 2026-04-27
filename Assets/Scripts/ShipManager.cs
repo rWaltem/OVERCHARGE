@@ -306,6 +306,7 @@ public class ShipManager : MonoBehaviour
         //Debug.Log($"Recovery Time: {recoveryTime}");
     }
 
+    // used for updating ship model, ie for animation
     void UpdateShipTransform()
     {
         return;

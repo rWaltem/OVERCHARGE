@@ -16,17 +16,30 @@ public class SplineMeshGenerator : MonoBehaviour
     public float width = 1f;
 
     [Header("Shape Settings")]
-    public bool generatePlane = true;   // true = flat plane, false = 3D mesh
-    public float thickness = 0.5f;      // extrusion depth when not plane
+    public bool generatePlane = true;
+    public float thickness = 0.5f;
 
     [Header("Mobius Settings")]
     public bool mobius = false;
     [Range(0f, 360f)]
     public float mobiusRotation = 180f;
 
+    public enum UVMode
+    {
+        Stretch,
+        Tile,
+        WorldDistance
+    }
+
+    [Header("UV Settings")]
+    public UVMode uvMode = UVMode.Stretch;
+    public float uvTiling = 1f;
+    public float uvOffset = 0f;
+    public bool flipU = false;
+    public bool flipV = false;
+
     private Mesh mesh;
 
-    // Rotate a point around a pivot along a given axis
     private Vector3 RotateAround(Vector3 point, Vector3 pivot, Vector3 axis, float angleDeg)
     {
         return pivot + Quaternion.AngleAxis(angleDeg, axis) * (point - pivot);
@@ -53,15 +66,34 @@ public class SplineMeshGenerator : MonoBehaviour
 
         int pointCount = closed ? resolution : resolution + 1;
 
-        int sideMultiplier = generatePlane ? 1 : 2; // top/bottom
+        int sideMultiplier = generatePlane ? 1 : 2;
         int vertCount = pointCount * 2 * sideMultiplier;
 
         Vector3[] vertices = new Vector3[vertCount];
         Vector2[] uvs = new Vector2[vertCount];
 
-        int segmentCount = closed ? resolution : resolution;
+        int segmentCount = resolution;
         int triangleCount = generatePlane ? segmentCount * 6 : segmentCount * 12;
         int[] triangles = new int[triangleCount];
+
+        float[] distances = new float[pointCount];
+        float totalLength = 0f;
+
+        if (uvMode == UVMode.WorldDistance)
+        {
+            Vector3 prev = (Vector3)spline.EvaluatePosition(0f);
+
+            for (int i = 1; i < pointCount; i++)
+            {
+                float tDist = i / (float)resolution;
+                Vector3 pos = (Vector3)spline.EvaluatePosition(tDist);
+
+                totalLength += Vector3.Distance(prev, pos);
+                distances[i] = totalLength;
+
+                prev = pos;
+            }
+        }
 
         // Generate vertices
         for (int i = 0; i < pointCount; i++)
@@ -78,13 +110,37 @@ public class SplineMeshGenerator : MonoBehaviour
 
             int vi = i * 2;
 
+            float v;
+            switch (uvMode)
+            {
+                case UVMode.Stretch:
+                    v = t;
+                    break;
+                case UVMode.Tile:
+                    v = t * uvTiling;
+                    break;
+                case UVMode.WorldDistance:
+                    v = distances[i] * uvTiling;
+                    break;
+                default:
+                    v = t;
+                    break;
+            }
+
+            v += uvOffset;
+
+            float u0 = flipU ? 1f : 0f;
+            float u1 = flipU ? 0f : 1f;
+
+            if (flipV) v = -v;
+
             if (generatePlane)
             {
                 vertices[vi]     = left;
                 vertices[vi + 1] = rightPos;
 
-                uvs[vi]     = new Vector2(0, t);
-                uvs[vi + 1] = new Vector2(1, t);
+                uvs[vi]     = new Vector2(u0, v);
+                uvs[vi + 1] = new Vector2(u1, v);
             }
             else
             {
@@ -97,10 +153,10 @@ public class SplineMeshGenerator : MonoBehaviour
                 vertices[vi + offset]     = left     - up * thickness * 0.5f;
                 vertices[vi + offset + 1] = rightPos - up * thickness * 0.5f;
 
-                uvs[vi]              = new Vector2(0, t);
-                uvs[vi + 1]          = new Vector2(1, t);
-                uvs[vi + offset]     = new Vector2(0, t);
-                uvs[vi + offset + 1] = new Vector2(1, t);
+                uvs[vi]              = new Vector2(u0, v);
+                uvs[vi + 1]          = new Vector2(u1, v);
+                uvs[vi + offset]     = new Vector2(u0, v);
+                uvs[vi + offset + 1] = new Vector2(u1, v);
             }
         }
 
@@ -129,7 +185,7 @@ public class SplineMeshGenerator : MonoBehaviour
             {
                 int offset = pointCount * 2;
 
-                // top face
+                // top
                 triangles[ti++] = vi;
                 triangles[ti++] = viNext;
                 triangles[ti++] = vi + 1;
@@ -138,7 +194,7 @@ public class SplineMeshGenerator : MonoBehaviour
                 triangles[ti++] = viNext;
                 triangles[ti++] = viNext + 1;
 
-                // bottom face
+                // bottom
                 triangles[ti++] = vi + offset;
                 triangles[ti++] = vi + offset + 1;
                 triangles[ti++] = viNext + offset + 1;
@@ -149,8 +205,7 @@ public class SplineMeshGenerator : MonoBehaviour
             }
         }
 
-        // Mobius seam: replace the closing segment's target vertices with
-        // rotated copies of ring 0, so the strip twists at the seam.
+        // Mobius seam
         if (mobius && !closed)
         {
             Vector3 seamTangent = ((Vector3)spline.EvaluateTangent(0f)).normalized;
@@ -161,20 +216,18 @@ public class SplineMeshGenerator : MonoBehaviour
 
             if (generatePlane)
             {
-                // Build rotated copies of ring-0 vertices
                 Vector3 r0L = RotateAround(vertices[firstRing],     seamCenter, seamTangent, mobiusRotation);
                 Vector3 r0R = RotateAround(vertices[firstRing + 1], seamCenter, seamTangent, mobiusRotation);
 
-                // Append two extra vertices
                 System.Array.Resize(ref vertices, vertCount + 2);
                 System.Array.Resize(ref uvs,      vertCount + 2);
 
                 vertices[vertCount]     = r0L;
                 vertices[vertCount + 1] = r0R;
-                uvs[vertCount]          = new Vector2(0, 1f);
-                uvs[vertCount + 1]      = new Vector2(1, 1f);
 
-                // Retarget the last 6 triangle indices (the seam quad)
+                uvs[vertCount]     = uvs[firstRing];
+                uvs[vertCount + 1] = uvs[firstRing + 1];
+
                 int seam = triangles.Length - 6;
                 triangles[seam]     = lastRing;
                 triangles[seam + 1] = vertCount;
@@ -193,7 +246,6 @@ public class SplineMeshGenerator : MonoBehaviour
                 Vector3 r0BL = RotateAround(vertices[firstRing + offset],     seamCenter, seamTangent, mobiusRotation);
                 Vector3 r0BR = RotateAround(vertices[firstRing + offset + 1], seamCenter, seamTangent, mobiusRotation);
 
-                // Append four extra vertices (top-L, top-R, bot-L, bot-R)
                 System.Array.Resize(ref vertices, vertCount + 4);
                 System.Array.Resize(ref uvs,      vertCount + 4);
 
@@ -202,19 +254,17 @@ public class SplineMeshGenerator : MonoBehaviour
                 vertices[vertCount + 2] = r0BL;
                 vertices[vertCount + 3] = r0BR;
 
-                uvs[vertCount]     = new Vector2(0, 1f);
-                uvs[vertCount + 1] = new Vector2(1, 1f);
-                uvs[vertCount + 2] = new Vector2(0, 1f);
-                uvs[vertCount + 3] = new Vector2(1, 1f);
+                uvs[vertCount]     = uvs[firstRing];
+                uvs[vertCount + 1] = uvs[firstRing + 1];
+                uvs[vertCount + 2] = uvs[firstRing + offset];
+                uvs[vertCount + 3] = uvs[firstRing + offset + 1];
 
-                // Retarget the last 12 triangle indices (top + bottom seam faces)
                 int seam = triangles.Length - 12;
                 int vL  = lastRing;
                 int vR  = lastRing + 1;
                 int vBL = lastRing + offset;
                 int vBR = lastRing + offset + 1;
 
-                // top face
                 triangles[seam]     = vL;
                 triangles[seam + 1] = vertCount;
                 triangles[seam + 2] = vR;
@@ -222,7 +272,6 @@ public class SplineMeshGenerator : MonoBehaviour
                 triangles[seam + 4] = vertCount;
                 triangles[seam + 5] = vertCount + 1;
 
-                // bottom face
                 triangles[seam + 6]  = vBL;
                 triangles[seam + 7]  = vBR;
                 triangles[seam + 8]  = vertCount + 3;
@@ -239,7 +288,6 @@ public class SplineMeshGenerator : MonoBehaviour
         mesh.RecalculateNormals();
         mesh.RecalculateBounds();
 
-        // Update MeshCollider if it exists
         MeshCollider meshCollider = GetComponent<MeshCollider>();
         if (meshCollider != null)
         {
@@ -247,4 +295,14 @@ public class SplineMeshGenerator : MonoBehaviour
             meshCollider.sharedMesh = mesh;
         }
     }
+
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        if (!Application.isPlaying)
+        {
+            GenerateMesh();
+        }
+    }
+#endif
 }
