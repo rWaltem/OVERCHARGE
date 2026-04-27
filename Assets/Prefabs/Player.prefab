@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7964368195480916407}
   - component: {fileID: 3118042796500695442}
   - component: {fileID: 7586237387403791491}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -131,6 +131,7 @@ MonoBehaviour:
   brakeInput: 0
   steeringInput: 0
   boostInput: 0
+  currentSpeed: 0
 --- !u!114 &7586237387403791491
 MonoBehaviour:
   m_ObjectHideFlags: 0
