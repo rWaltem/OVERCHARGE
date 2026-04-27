@@ -4,9 +4,10 @@ OVERCHARGE is a fast-paced arcade racing game inspired by F-Zero GX and Mario Ka
 ## Bugs
  - Player should stop quicker when no buttons are pressed
 
-- Camera jitters (maybe from the difference between fixed and frame updates?)
 - Player gets stuck on walls
 - Remove bottom face of charge pad model
+
+- INSTEAD OF CHARGE PADS HAVING HIT BOXES. Player has a bigger, trigger hit box. When that goes over charge pads will ship charge
 ## Next Steps
 - Gates
 - Look into making procedural tracks
@@ -21,6 +22,8 @@ OVERCHARGE is a fast-paced arcade racing game inspired by F-Zero GX and Mario Ka
 - (x) Ship can boost
 - (x) Ship can be 'disabled'
 - (x) Charge pads
+- ( ) Generate-able track from spline
+- ( ) Update charge pads to new logic
 - ( ) Track Gates
 - ( ) Lap Timer
 - ( ) Track Position

@@ -155,6 +155,8 @@ public class ShipManager : MonoBehaviour
         // add model to game
         shipModel = Instantiate(shipModelPrefab, transform);
         shipModel.transform.localScale = shipModelScaleFactor;
+        shipModel.transform.localPosition = shipModelTargetLocalPosition;
+        shipModel.transform.localRotation = shipModelTargetLocalRotation;
 
         Debug.Log("Instantiated ship model");
 
@@ -304,10 +306,15 @@ public class ShipManager : MonoBehaviour
         //Debug.Log($"Recovery Time: {recoveryTime}");
     }
 
+    void UpdateShipTransform()
+    {
+        return;
+    }
+
     /* Update is called every frame */
     void Update()
     {
-        // detect button press (not hold)
+        // detect button press
         if (boostInput && !lastBoostInput)
         {
             TryBoost();
@@ -327,7 +334,7 @@ public class ShipManager : MonoBehaviour
         if (currentCharge <= 0 && !isJammed)
         {
             isJammed = true;
-            recoveryTime = recoverySpeed; // or use recoverySpeed if intended
+            recoveryTime = recoverySpeed;
         }
 
 
@@ -340,9 +347,6 @@ public class ShipManager : MonoBehaviour
         }
 
         if (isJammed) JamDelay();
-        
-        shipModel.transform.localPosition = shipModelTargetLocalPosition;
-        shipModel.transform.localRotation = shipModelTargetLocalRotation;
     }
 
     void OnTriggerEnter(Collider other)
