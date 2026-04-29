@@ -186,16 +186,16 @@
   },
   "active": "19e7915e7efef6c4",
   "lastOpenFiles": [
+    "Library/Search/propertyDatabase.db_fbd645e4ce984cc1a9980913f86be678_temp",
+    "Library/Search/propertyAliases.db_12970f929e61424182de4a83e91ba92f_temp",
+    "Library/UndoStack.bin",
+    "Library/UndoData.bin",
     "Library/Search/propertyDatabase.db_9c53061b99164d7aac0155802eb00a9b_temp",
     "Library/PreviousActionStack.bin",
     "Library/PreviousActionData.bin",
     "Logs/shadercompiler-UnityShaderCompiler-0.log",
     "Library/ShaderCache.db-journal",
     "Library/Bee/tundra.digestcache.tmp",
-    "Assets/_Recovery/0.unity.meta",
-    "Assets/_Recovery.meta",
-    "Logs/AssetImportWorker1-prev.log",
-    "Logs/AssetImportWorker0-prev.log",
-    "Assets/_Recovery/0.unity"
+    "Assets/_Recovery/0.unity.meta"
   ]
 }

@@ -11,9 +11,6 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI speedText;
     public TextMeshProUGUI racePos;
 
-    public RacePositionTracker rpt;
-    public Slider posPercent;
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -28,8 +25,5 @@ public class UIManager : MonoBehaviour
 
         // speed value
         speedText.text = $"MPH: {math.round(playerShipManager.currentSpeed)}";
-
-        posPercent.maxValue = rpt.length;
-        posPercent.value = rpt.distance;
     }
 }
