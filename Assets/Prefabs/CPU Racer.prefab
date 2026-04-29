@@ -1,0 +1,149 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1756884854254299629
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1555499369570874568}
+  - component: {fileID: 9134002362532247797}
+  - component: {fileID: 1193767631806316664}
+  - component: {fileID: 8932186217720027153}
+  - component: {fileID: 6247696855206683294}
+  m_Layer: 8
+  m_Name: CPU Racer
+  m_TagString: Player
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1555499369570874568
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1756884854254299629}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 99.5, y: 7.43, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &9134002362532247797
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1756884854254299629}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Height: 5
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &1193767631806316664
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1756884854254299629}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 2
+  m_AngularDamping: 1
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 2
+--- !u!114 &8932186217720027153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1756884854254299629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46cd04193884e694c8aa7fc007552685, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  globalMods: {fileID: 11400000, guid: 0b037a934b4aed24c82c3dd4aee9be8d, type: 2}
+  currentCharacter: {fileID: 11400000, guid: 798af30ba9f295942affdab1b67a6abd, type: 2}
+  currentShip: {fileID: 11400000, guid: 8803c57a85d103a4baea7c66860c79a6, type: 2}
+  currentTrack: {fileID: 11400000, guid: 2e14a7c93b75797479971780a50394f7, type: 2}
+  recoverySpeed: 0
+  speed: 0
+  accel: 0
+  weight: 0
+  handling: 0
+  maxCharge: 0
+  rechargeRate: 0
+  matchingBoost: 0
+  specialtyBoost: 0
+  characterModelPrefab: {fileID: 0}
+  shipModelPrefab: {fileID: 0}
+  shipModelScaleFactor: {x: 0, y: 0, z: 0}
+  shipModelTargetLocalPosition: {x: 0, y: 0, z: 0}
+  shipModelTargetLocalRotation: {x: 0, y: 0, z: 0, w: 0}
+  currentCharge: 0
+  boostAmount: 0
+  isGrounded: 0
+  trackLayerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  chargePadLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  boostDuration: 2.5
+  boostCost: 50
+  isJammed: 0
+  throttleInput: 0
+  brakeInput: 0
+  steeringInput: 0
+  boostInput: 0
+  currentSpeed: 0
+--- !u!114 &6247696855206683294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1756884854254299629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10f2b76ca64f2e8bd98e11338e4d2b20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  currentCharacter: {fileID: 0}
+  currentShip: {fileID: 0}
+  randomize: 1
