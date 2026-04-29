@@ -14,7 +14,6 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         chargeSlider.maxValue = playerShipManager.maxCharge;
-
     }
 
     // Update is called once per frame

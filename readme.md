@@ -3,12 +3,12 @@
 OVERCHARGE is a fast-paced arcade racing game inspired by F-Zero GX and Mario Kart with gameplay focusing on speed, skill, and resource management. It features tracks that are 'anti-gravity' where the player can race in any orientation, allowing unique track layouts to be made. For example, a Mobius strip, or tunnel where you can race on every surface. The player can pick different characters to play as and ships to drive, which have different stats and driving characteristics.
 ## Bugs
  - Player should stop quicker when no buttons are pressed
-
-- Camera jitters (maybe from the difference between fixed and frame updates?)
 - Player gets stuck on walls
-- Remove bottom face of charge pad model
 ## Next Steps
-- Basic UI
+- Gates
+- Look into making procedural tracks
+	- (x) Gen Surface
+	- ( ) Gen Walls
 ## Development Path
 
 ### First full through line (Pre-Alpha)
@@ -20,6 +20,8 @@ OVERCHARGE is a fast-paced arcade racing game inspired by F-Zero GX and Mario Ka
 - (x) Ship can boost
 - (x) Ship can be 'disabled'
 - (x) Charge pads
+- ( ) Generate-able track from spline
+- (x) Update charge pads to new logic
 - ( ) Track Gates
 - ( ) Lap Timer
 - ( ) Track Position
