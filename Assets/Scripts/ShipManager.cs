@@ -64,8 +64,6 @@ public class ShipManager : MonoBehaviour
     private float recoveryTime;
     public float currentSpeed = 0f;
     private float currentSteer = 0f;
-    private bool isCharging = false;
-    private int chargeContacts;
 
     // PID height
     private float shipHeight = 2.5f;
@@ -171,17 +169,10 @@ public class ShipManager : MonoBehaviour
 
         // charge ship
         if (currentCharge < maxCharge) {
-
-            isCharging = true;
-
             currentCharge += rechargeRate * Time.fixedDeltaTime;
 
             // lock to max charge
             if (currentCharge > maxCharge) currentCharge = maxCharge;
-        } 
-        else 
-        {
-            isCharging = false;
         }
     }
 
