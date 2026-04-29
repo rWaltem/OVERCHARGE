@@ -169,15 +169,37 @@ public class ShipManager : MonoBehaviour
     {
         //Debug.Log("On boost pad");
 
-        if (!isCharging) return;
-
         // charge ship
         if (currentCharge < maxCharge) {
+
+            isCharging = true;
+
             currentCharge += rechargeRate * Time.fixedDeltaTime;
 
             // lock to max charge
             if (currentCharge > maxCharge) currentCharge = maxCharge;
+        } 
+        else 
+        {
+            isCharging = false;
         }
+    }
+
+    void TryCharge() 
+    {
+        RaycastHit hit;
+        float rayLength = 4;
+        if (Physics.Raycast(transform.position, -transform.up, out hit, rayLength))
+        {
+            //Debug.Log(hit.transform.gameObject.layer);
+
+            // If on "Charge Pad" layer, update the charge
+            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Charge Pad"))
+            {
+                UpdateCharge();
+            }
+        }
+
     }
 
     void TryBoost()
@@ -259,6 +281,7 @@ public class ShipManager : MonoBehaviour
 
         RaycastHit hit;
 
+        // TODO: only drives on drivable layermask
         if (Physics.Raycast(transform.position, -transform.up, out hit, 6))
         {            
             isGrounded = true;
@@ -282,12 +305,12 @@ public class ShipManager : MonoBehaviour
 
             UpdateSpeed();
             UpdateSteering();
-            UpdateCharge();
+            TryCharge();
         } else
         {
             isGrounded = false;
 
-            Debug.DrawRay(transform.position, -transform.up, Color.red);
+            //Debug.DrawRay(transform.position, -transform.up, Color.red);
             rb.linearDamping = 0;
             rb.AddForce(Vector3.down * 78);
         }
@@ -338,32 +361,6 @@ public class ShipManager : MonoBehaviour
             recoveryTime = recoverySpeed;
         }
 
-
-        if (chargeContacts > 0)
-        {
-            isCharging = true;
-        } else
-        {
-            isCharging = false;
-        }
-
         if (isJammed) JamDelay();
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Charge Pad"))
-        {
-            chargeContacts++;
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Charge Pad"))
-        {
-            chargeContacts--;
-            if (chargeContacts < 0) chargeContacts = 0; // safety
-        }
     }
 }
