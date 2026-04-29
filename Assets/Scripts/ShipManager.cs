@@ -180,6 +180,9 @@ public class ShipManager : MonoBehaviour
     {
         RaycastHit hit;
         float rayLength = 4;
+
+        Debug.DrawRay(transform.position, -transform.up * rayLength, Color.red);
+
         if (Physics.Raycast(transform.position, -transform.up, out hit, rayLength))
         {
             //Debug.Log(hit.transform.gameObject.layer);

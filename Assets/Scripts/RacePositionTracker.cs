@@ -1,10 +1,19 @@
 using UnityEngine;
 using UnityEngine.Splines;
 using Unity.Mathematics;
+using System;
+
+[System.Serializable]
+public class racer
+{
+    public Transform ship;
+    public float laps;
+    public float distance; // <-- store current distance
+}
 
 public class RacePositionTracker : MonoBehaviour
 {
-    public Transform[] racers;
+    public racer[] racers;
     public SplineContainer splineContainer;
     public bool isMobius = false;
 
@@ -13,11 +22,7 @@ public class RacePositionTracker : MonoBehaviour
 
     public float length;
 
-
-    // One t per racer
     private float[] lastT;
-
-    // Track lap count per racer
     private int[] lapCount;
 
     void Awake()
@@ -37,7 +42,7 @@ public class RacePositionTracker : MonoBehaviour
     {
         var spline = splineContainer.Spline;
 
-        float3 worldPos = racers[index].position;
+        float3 worldPos = racers[index].ship.position;
 
         float bestT = lastT[index];
         float bestDist = float.MaxValue;
@@ -61,7 +66,7 @@ public class RacePositionTracker : MonoBehaviour
             }
         }
 
-        // Detect crossing the loop boundary (lap increment)
+        // Lap detection
         if (IsForward(lastT[index], bestT))
         {
             if (bestT < lastT[index] - 0.5f)
@@ -76,10 +81,7 @@ public class RacePositionTracker : MonoBehaviour
 
         lastT[index] = bestT;
 
-        // Total normalized progress (includes laps)
         float totalT = lapCount[index] + bestT;
-
-        // Mobius: require 2 loops to count as 1
         float effectiveT = isMobius ? totalT * 0.5f : totalT;
 
         return effectiveT * length;
@@ -87,10 +89,19 @@ public class RacePositionTracker : MonoBehaviour
 
     void Update()
     {
+        // Update distances
         for (int i = 0; i < racers.Length; i++)
         {
-            float distance = GetDistanceAlongSpline(i);
-            Debug.Log($"Racer {i}: {distance / length}");
+            racers[i].distance = GetDistanceAlongSpline(i);
+        }
+
+        // Sort racers by distance (highest first)
+        Array.Sort(racers, (a, b) => b.distance.CompareTo(a.distance));
+
+        // Debug output (now in race order)
+        for (int i = 0; i < racers.Length; i++)
+        {
+            Debug.Log($"Place {i + 1}: {racers[i].ship.name} ({racers[i].distance / length})");
         }
     }
 
