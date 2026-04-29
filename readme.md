@@ -6,7 +6,7 @@ OVERCHARGE is a fast-paced arcade racing game inspired by F-Zero GX and Mario Ka
 - Player gets stuck on walls
 ## Next Steps
 - Race Position
-	- ( ) Each ship has a %done of track, or distance to end
+	- (x) Each ship has a %done of track, or distance to end
 	- ( ) Sort, and whoever is closest to the end is in first.
 - Look into making procedural tracks
 	- (x) Gen Surface
