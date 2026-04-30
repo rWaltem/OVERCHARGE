@@ -8,7 +8,7 @@ public class racer
 {
     public Transform ship;
     public float laps;
-    public float distance; // <-- store current distance
+    public float distance;
 }
 
 public class RacePositionTracker : MonoBehaviour
@@ -25,8 +25,37 @@ public class RacePositionTracker : MonoBehaviour
     private float[] lastT;
     private int[] lapCount;
 
+    void GetRacers()
+    {
+        int racerLayer = LayerMask.NameToLayer("racers");
+
+        GameObject[] allObjects = FindObjectsByType<GameObject>(FindObjectsSortMode.None);
+        var found = new System.Collections.Generic.List<racer>();
+
+        foreach (GameObject obj in allObjects)
+        {
+            if (obj.layer == racerLayer)
+            {
+                racer r = new racer();
+                r.ship = obj.transform;
+                r.laps = 0f;
+                r.distance = 0f;
+
+                found.Add(r);
+            }
+        }
+
+        racers = found.ToArray();
+
+        // Reinitialize tracking arrays since size may change
+        lastT = new float[racers.Length];
+        lapCount = new int[racers.Length];
+    }
+
     void Awake()
     {
+        GetRacers();
+
         var spline = splineContainer.Spline;
 
         length = SplineUtility.CalculateLength(

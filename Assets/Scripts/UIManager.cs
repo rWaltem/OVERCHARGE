@@ -2,7 +2,6 @@ using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Splines;
 
 public class UIManager : MonoBehaviour
 {
