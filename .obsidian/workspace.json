@@ -186,16 +186,16 @@
   },
   "active": "19e7915e7efef6c4",
   "lastOpenFiles": [
-    "Assets/_Recovery/0.unity.meta",
-    "Assets/_Recovery/0.unity",
-    "Assets/_Recovery",
-    "Assets/_Recovery.meta",
-    "Assets/Scripts/SplineMeshGeneratorEditor.cs.meta",
-    "Assets/Scripts/SplineMeshGeneratorEditor.cs",
-    "Assets/Scripts/SplineMeshGenerator.cs.meta",
-    "Assets/Scripts/SplineMeshGenerator.cs",
-    "Assets/Scripts/RacerSpawner.cs.meta",
-    "Assets/Scripts/RacerSpawner.cs",
-    "Assets/Scripts/RacePositionTracker.cs.meta"
+    "Temp/obj/Assembly-CSharp/Assembly-CSharp.GeneratedMSBuildEditorConfig.editorconfig",
+    "Temp/obj/Dreamteck.Splines.Editor/Dreamteck.Splines.Editor.GeneratedMSBuildEditorConfig.editorconfig",
+    "Temp/obj/Assembly-CSharp/Assembly-CSharp.csproj.AssemblyReference.cache",
+    "Temp/obj/Dreamteck.Splines.Editor/Dreamteck.Splines.Editor.csproj.AssemblyReference.cache",
+    "Temp/obj/Dreamteck.Utilities.Editor/Dreamteck.Utilities.Editor.GeneratedMSBuildEditorConfig.editorconfig",
+    "Temp/obj/Dreamteck.Utilities.Editor/Dreamteck.Utilities.Editor.csproj.AssemblyReference.cache",
+    "Temp/obj/Dreamteck.Splines/Dreamteck.Splines.GeneratedMSBuildEditorConfig.editorconfig",
+    "Temp/obj/Dreamteck.Splines/Dreamteck.Splines.csproj.AssemblyReference.cache",
+    "Temp/obj/Dreamteck.Utilities.Editor/Dreamteck.Utilities.Editor.assets.cache",
+    "Temp/obj/Dreamteck.Utilities/Dreamteck.Utilities.GeneratedMSBuildEditorConfig.editorconfig",
+    "Temp/obj/Dreamteck.Splines/Dreamteck.Splines.assets.cache"
   ]
 }
