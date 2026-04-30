@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 1193767631806316664}
   - component: {fileID: 8932186217720027153}
   - component: {fileID: 6247696855206683294}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: CPU Racer
-  m_TagString: Player
+  m_TagString: Racer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -144,6 +144,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10f2b76ca64f2e8bd98e11338e4d2b20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  currentCharacter: {fileID: 0}
-  currentShip: {fileID: 0}
-  randomize: 1
+  currentCharacter: {fileID: 11400000, guid: cb853eac645e5694cadb6c7eca6dcc49, type: 2}
+  currentShip: {fileID: 11400000, guid: 8803c57a85d103a4baea7c66860c79a6, type: 2}
+  randomize: 0

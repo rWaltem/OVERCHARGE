@@ -99,10 +99,10 @@ public class RacePositionTracker : MonoBehaviour
         Array.Sort(racers, (a, b) => b.distance.CompareTo(a.distance));
 
         // Debug output (now in race order)
-        for (int i = 0; i < racers.Length; i++)
-        {
-            Debug.Log($"Place {i + 1}: {racers[i].ship.name} ({racers[i].distance / length})");
-        }
+        //for (int i = 0; i < racers.Length; i++)
+        //{
+        //    Debug.Log($"Place {i + 1}: {racers[i].ship.name} ({racers[i].distance / length})");
+        //}
     }
 
     float Wrap01(float t)
