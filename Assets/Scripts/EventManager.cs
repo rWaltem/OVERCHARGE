@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SceneLoader : MonoBehaviour
+public class EventManager : MonoBehaviour
 {
     public RacerSpawner racerSpawner;
     public RacePositionTracker RPT;
