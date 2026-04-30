@@ -452,7 +452,7 @@ MonoBehaviour:
   - {fileID: 1550012131}
   - {fileID: 798430204}
   - {fileID: 579070332}
-  playerStartNum: 3
+  playerStartNum: 0
   playerPrefab: {fileID: 4633131386471777067, guid: c0b6739f0842b734b8a8d6755e1b7e11, type: 3}
   CPURacerPrefab: {fileID: 1756884854254299629, guid: 749ed5ffe8159f4349e26a455556dacb, type: 3}
 --- !u!114 &559487571
