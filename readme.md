@@ -67,6 +67,16 @@ OVERCHARGE is a fast-paced arcade racing game inspired by F-Zero GX and Mario Ka
 
 ## Menu
 
+#### Main Menu
+- Singleplayer
+- Multiplayer
+- Options
+- Exit
+#### Selection
+- Pick character
+- Pick ship
+- (depending on multi or single) pick track
+
 ### Character Selection
 Grid selection to the left with the model of the character on the right
 ### Ship Selection
