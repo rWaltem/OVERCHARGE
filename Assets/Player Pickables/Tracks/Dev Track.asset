@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 483fe37d457ea45439acede90f49e490, type: 3}
-  m_Name: SpeedLoopTrack
+  m_Name: Dev Track
   m_EditorClassIdentifier: Assembly-CSharp::TrackData
-  trackName: Speed Loop
+  trackName: Dev Track
   laps: 3
   length: -1
-  type: speed
-  trackPrefab: {fileID: 0}
+  type: mobius
+  sceneName: Dev Track

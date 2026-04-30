@@ -12,6 +12,6 @@ public class TrackData : ScriptableObject
     [Header("Hidden Stats")]
     public string type = "n/a";
 
-    [Header("Prefab")]
-    public GameObject trackPrefab;
+    [Header("Track Scene")]
+    public string sceneName;
 }
