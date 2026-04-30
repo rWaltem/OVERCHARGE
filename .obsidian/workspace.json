@@ -186,16 +186,16 @@
   },
   "active": "19e7915e7efef6c4",
   "lastOpenFiles": [
-    "Temp/UnityTempFile-084350405da224b4581b8693bc43a9ca",
-    "Temp/UnityTempFile-df8dbe0ef7b524f4693824b04b44aa38",
-    "Temp/UnityTempFile-800e6b0d2588f214f9f3e5718fa2ddf9",
-    "Temp/ADB-Refreshaff7e6a2a9975b14598ffb79625ac390",
-    "Temp/UnityTempFile-187049c7420a2f349ada7ec9a2882d6d",
-    "Temp/UnityTempFile-c9969dabbd53ffd458579731cb125f68",
-    "Temp/UnityTempFile-a7d2ba65bb086d24183555a1e5d49a85",
-    "Temp/ADB-Refreshd330fa86adc42724993977c24cd14438",
-    "Temp/UnityTempFile-5aa8c4006302410419e5b581c9d94737",
-    "Temp/ADB-Refresh79ffed81476025148a07aca622440182",
-    "Library/Search/propertyAliases.db_26b1a576e6f141a0a86d619a4b6b94cd_temp"
+    "Assets/_Recovery/0.unity.meta",
+    "Assets/_Recovery/0.unity",
+    "Assets/_Recovery",
+    "Assets/_Recovery.meta",
+    "Assets/Scripts/SplineMeshGeneratorEditor.cs.meta",
+    "Assets/Scripts/SplineMeshGeneratorEditor.cs",
+    "Assets/Scripts/SplineMeshGenerator.cs.meta",
+    "Assets/Scripts/SplineMeshGenerator.cs",
+    "Assets/Scripts/RacerSpawner.cs.meta",
+    "Assets/Scripts/RacerSpawner.cs",
+    "Assets/Scripts/RacePositionTracker.cs.meta"
   ]
 }

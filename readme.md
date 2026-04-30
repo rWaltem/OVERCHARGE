@@ -8,7 +8,7 @@ OVERCHARGE is a fast-paced arcade racing game inspired by F-Zero GX and Mario Ka
 - Race Position
 	- (x) Each ship has a %done of track, or distance to end
 	- (x) Sort, and whoever is closest to the end is in first.
-	- ( ) Auto populates with current racers
+	- (x) Auto populates with current racers
 - Look into making procedural tracks
 	- (x) Gen Surface
 	- ( ) Gen Walls
@@ -25,7 +25,7 @@ OVERCHARGE is a fast-paced arcade racing game inspired by F-Zero GX and Mario Ka
 - (x) Charge pads
 - (~) Generate-able track from spline
 - (x) Update charge pads to new logic
-- ( ) Racer spawn on track load
+- (x) Racer spawn on track load
 - ( ) Lap Timer
 - (x) Track Position
 - ( ) Race can finish
