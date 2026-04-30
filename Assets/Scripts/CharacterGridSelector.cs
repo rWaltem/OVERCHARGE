@@ -9,7 +9,7 @@ public class CharacterGridSelector : MonoBehaviour
     {
         foreach (CharacterData charData in db.characters)
         {
-            
+            Debug.Log(charData.name);
         }
     }
 }
