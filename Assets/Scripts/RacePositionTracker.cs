@@ -29,22 +29,18 @@ public class RacePositionTracker : MonoBehaviour
 
     void GetRacers()
     {
-        int racerLayer = LayerMask.NameToLayer("racers");
+        GameObject[] allObjects = GameObject.FindGameObjectsWithTag("Racer");
 
-        GameObject[] allObjects = FindObjectsByType<GameObject>(FindObjectsSortMode.None);
         var found = new System.Collections.Generic.List<racer>();
 
         foreach (GameObject obj in allObjects)
         {
-            if (obj.layer == racerLayer)
-            {
-                racer r = new racer();
-                r.ship = obj.transform;
-                r.laps = 0f;
-                r.distance = 0f;
+            racer r = new racer();
+            r.ship = obj.transform;
+            r.laps = 0f;
+            r.distance = 0f;
 
-                found.Add(r);
-            }
+            found.Add(r);
         }
 
         racers = found.ToArray();
