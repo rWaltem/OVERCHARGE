@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class EventManager : MonoBehaviour
 {
+    public TrackData trackData;
     public RacerSpawner racerSpawner;
     public RacePositionTracker RPT;
 

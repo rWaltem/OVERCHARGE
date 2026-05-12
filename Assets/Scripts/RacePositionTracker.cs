@@ -2,12 +2,13 @@ using UnityEngine;
 using UnityEngine.Splines;
 using Unity.Mathematics;
 using System;
+using Unity.VisualScripting;
 
 [System.Serializable]
 public class racer
 {
     public Transform ship;
-    public float laps;
+    public int laps;
     public float distance;
 }
 
@@ -24,7 +25,6 @@ public class RacePositionTracker : MonoBehaviour
     public float length;
 
     private float[] lastT;
-    private int[] lapCount;
     private bool trackingInitized = false;
 
     void GetRacers()
@@ -37,7 +37,7 @@ public class RacePositionTracker : MonoBehaviour
         {
             racer r = new racer();
             r.ship = obj.transform;
-            r.laps = 0f;
+            r.laps = 1;
             r.distance = 0f;
 
             found.Add(r);
@@ -47,7 +47,6 @@ public class RacePositionTracker : MonoBehaviour
 
         // Reinitialize tracking arrays since size may change
         lastT = new float[racers.Length];
-        lapCount = new int[racers.Length];
     }
 
     public void InitTracking()
@@ -62,7 +61,6 @@ public class RacePositionTracker : MonoBehaviour
         );
 
         lastT = new float[racers.Length];
-        lapCount = new int[racers.Length];
 
         trackingInitized = true;
     }
@@ -100,7 +98,7 @@ public class RacePositionTracker : MonoBehaviour
         {
             if (bestT < lastT[index] - 0.5f)
             {
-                lapCount[index]++;
+                racers[index].laps++;
             }
         }
         else
@@ -110,7 +108,7 @@ public class RacePositionTracker : MonoBehaviour
 
         lastT[index] = bestT;
 
-        float totalT = lapCount[index] + bestT;
+        float totalT = racers[index].laps + bestT;
         float effectiveT = isMobius ? totalT * 0.5f : totalT;
 
         return effectiveT * length;
@@ -129,12 +127,6 @@ public class RacePositionTracker : MonoBehaviour
 
         // Sort racers by distance (highest first)
         Array.Sort(racers, (a, b) => b.distance.CompareTo(a.distance));
-
-        // Debug output (now in race order)
-        //for (int i = 0; i < racers.Length; i++)
-        //{
-        //    Debug.Log($"Place {i + 1}: {racers[i].ship.name} ({racers[i].distance / length})");
-        //}
     }
 
     float Wrap01(float t)
