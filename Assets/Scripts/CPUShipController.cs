@@ -1,4 +1,6 @@
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class CPUShipController : MonoBehaviour
 {
@@ -6,6 +8,7 @@ public class CPUShipController : MonoBehaviour
     [Header("Selection")]
     public CharacterData currentCharacter;
     public ShipData currentShip;
+    public GameDatabase gameDatabase;
     public bool randomize = true;
 
     private ShipManager shipManager;
@@ -17,11 +20,17 @@ public class CPUShipController : MonoBehaviour
 
     void RandomizeSelection()
     {
-        // TODO: randzomize logic here
+        // get length of arrays
+        int char_n = gameDatabase.characters.Count();
+        int ship_n = gameDatabase.ships.Count();
+
+        // get random number in the range of objects
+        int char_r = Random.Range(0, char_n);
+        int ship_r = Random.Range(0, ship_n);
         
-        // temp hard code
-        shipManager.currentCharacter = currentCharacter;
-        shipManager.currentShip = currentShip;
+        // set selection to the randomly selected one
+        shipManager.currentCharacter = gameDatabase.characters[char_r];
+        shipManager.currentShip = gameDatabase.ships[ship_r];
     }
 
     void Start()

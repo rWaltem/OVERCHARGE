@@ -146,4 +146,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   currentCharacter: {fileID: 11400000, guid: cb853eac645e5694cadb6c7eca6dcc49, type: 2}
   currentShip: {fileID: 11400000, guid: 8803c57a85d103a4baea7c66860c79a6, type: 2}
-  randomize: 0
+  gameDatabase: {fileID: 11400000, guid: b5cb228f620a04a4ca4e3cc595ecfcf2, type: 2}
+  randomize: 1
