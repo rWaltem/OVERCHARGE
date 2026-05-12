@@ -72,9 +72,8 @@ Grid selection to the left with the model of the character on the right
 ![[IMG_5764.png]]
 
 ## Loading
-Racing Scene
-Track and details are a prefab
-Game manager (which also controls the timer) will load the prefab
+Each track is in own scene
+GameManager spawns racers (including player(s))
 ## Movement
 
 ### Air control

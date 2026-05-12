@@ -13,6 +13,7 @@ public class racer
 
 public class RacePositionTracker : MonoBehaviour
 {
+    public bool trackPositions = false;
     public racer[] racers;
     public SplineContainer splineContainer;
     public bool isMobius = false;
@@ -24,6 +25,7 @@ public class RacePositionTracker : MonoBehaviour
 
     private float[] lastT;
     private int[] lapCount;
+    private bool trackingInitized = false;
 
     void GetRacers()
     {
@@ -52,7 +54,7 @@ public class RacePositionTracker : MonoBehaviour
         lapCount = new int[racers.Length];
     }
 
-    void Awake()
+    public void InitTracking()
     {
         GetRacers();
 
@@ -65,6 +67,8 @@ public class RacePositionTracker : MonoBehaviour
 
         lastT = new float[racers.Length];
         lapCount = new int[racers.Length];
+
+        trackingInitized = true;
     }
 
     float GetDistanceAlongSpline(int index)
@@ -118,6 +122,9 @@ public class RacePositionTracker : MonoBehaviour
 
     void Update()
     {
+        if (!trackingInitized) return;
+        if (!trackPositions) return;
+
         // Update distances
         for (int i = 0; i < racers.Length; i++)
         {
