@@ -1484,7 +1484,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RawImage
   m_Material: {fileID: 0}
-  m_Color: {r: 0.050062295, g: 0.0756427, b: 0.14150941, a: 1}
+  m_Color: {r: 0.22734958, g: 0.2640213, b: 0.3679245, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1621,6 +1621,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34919ee5b00acef4db8e24511038b4a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  selectedMode: 0
   mainMenuSceneName: Main Menu
   devSceneName: Dev Scene
 --- !u!1 &1121050856
