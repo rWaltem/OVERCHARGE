@@ -2,51 +2,44 @@ using UnityEngine;
 using UnityEngine.Splines;
 using Unity.Mathematics;
 using System;
-using Unity.VisualScripting;
 
 [System.Serializable]
-public class racer
+public class Racer
 {
     public Transform ship;
-    public int laps;
-    public float distance;
+    public int laps;       // Visual laps (full Möbius loops)
+    public float distance; // Total distance for position ranking
 }
 
 public class RacePositionTracker : MonoBehaviour
 {
     public bool trackPositions = false;
-    public racer[] racers;
+    public Racer[] racers;
     public SplineContainer splineContainer;
     public bool isMobius = false;
 
     [Range(0.001f, 0.2f)]
     public float searchWindow = 0.05f;
 
-    public float length;
+    public float length; // Physical spline arc length
 
     private float[] lastT;
-    private bool trackingInitized = false;
+    private int[] splineLapCount;   // Crossings of t=0 on the spline
+    private bool trackingInitialized = false;
 
     void GetRacers()
     {
         GameObject[] allObjects = GameObject.FindGameObjectsWithTag("Racer");
-
-        var found = new System.Collections.Generic.List<racer>();
+        var found = new System.Collections.Generic.List<Racer>();
 
         foreach (GameObject obj in allObjects)
         {
-            racer r = new racer();
-            r.ship = obj.transform;
-            r.laps = 1;
-            r.distance = 0f;
-
-            found.Add(r);
+            found.Add(new Racer { ship = obj.transform, laps = 0, distance = 0f });
         }
 
         racers = found.ToArray();
-
-        // Reinitialize tracking arrays since size may change
         lastT = new float[racers.Length];
+        splineLapCount = new int[racers.Length];
     }
 
     public void InitTracking()
@@ -54,38 +47,29 @@ public class RacePositionTracker : MonoBehaviour
         GetRacers();
 
         var spline = splineContainer.Spline;
-
-        length = SplineUtility.CalculateLength(
-            spline,
-            splineContainer.transform.localToWorldMatrix
-        );
-
-        lastT = new float[racers.Length];
-
-        trackingInitized = true;
+        length = SplineUtility.CalculateLength(spline, splineContainer.transform.localToWorldMatrix);
+        trackingInitialized = true;
     }
 
     float GetDistanceAlongSpline(int index)
     {
         var spline = splineContainer.Spline;
-
         float3 worldPos = racers[index].ship.position;
 
         float bestT = lastT[index];
         float bestDist = float.MaxValue;
 
-        int steps = 20;
-
+        // Sample candidate t values in a window around last known position
+        const int steps = 30;
         for (int i = 0; i <= steps; i++)
         {
-            float offset = math.lerp(-searchWindow, searchWindow, i / (float)steps);
+            float offset = Mathf.Lerp(-searchWindow, searchWindow, i / (float)steps);
             float t = Wrap01(lastT[index] + offset);
 
             float3 localPoint = spline.EvaluatePosition(t);
             float3 worldPoint = splineContainer.transform.TransformPoint(localPoint);
 
             float dist = math.distance(worldPos, worldPoint);
-
             if (dist < bestDist)
             {
                 bestDist = dist;
@@ -93,56 +77,47 @@ public class RacePositionTracker : MonoBehaviour
             }
         }
 
-        // Lap detection
-        if (IsForward(lastT[index], bestT))
-        {
-            if (bestT < lastT[index] - 0.5f)
-            {
-                racers[index].laps++;
-            }
-        }
-        else
-        {
+        // Detect forward crossing of the t=0 seam
+        float delta = bestT - lastT[index];
+        if (delta < -0.5f)       // Wrapped forward over t=1→0
+            splineLapCount[index]++;
+        else if (delta > 0.5f)   // Wrapped backward — clamp, don't penalise
             bestT = lastT[index];
-        }
 
         lastT[index] = bestT;
 
-        float totalT = racers[index].laps + bestT;
-        float effectiveT = isMobius ? totalT * 0.5f : totalT;
+        // Total progress in spline-laps (each = one full t=0..1 traversal)
+        float totalSplineLaps = splineLapCount[index] + bestT;
 
-        return effectiveT * length;
+        // On a Möbius strip the spline wraps around twice per visual loop,
+        // so divide by 2 to get true lap count.
+        if (isMobius)
+        {
+            racers[index].laps = Mathf.FloorToInt(totalSplineLaps / 2f);
+            return totalSplineLaps * 0.5f * length;
+        }
+        else
+        {
+            racers[index].laps = splineLapCount[index];
+            return totalSplineLaps * length;
+        }
     }
 
     void Update()
     {
-        if (!trackingInitized) return;
-        if (!trackPositions) return;
+        if (!trackingInitialized || !trackPositions) return;
 
-        // Update distances
         for (int i = 0; i < racers.Length; i++)
-        {
             racers[i].distance = GetDistanceAlongSpline(i);
-        }
 
-        // Sort racers by distance (highest first)
+        // Rank by total distance travelled (highest = furthest ahead)
         Array.Sort(racers, (a, b) => b.distance.CompareTo(a.distance));
     }
 
-    float Wrap01(float t)
+    static float Wrap01(float t)
     {
         if (t < 0f) return t + 1f;
         if (t > 1f) return t - 1f;
         return t;
-    }
-
-    bool IsForward(float from, float to)
-    {
-        float delta = to - from;
-
-        if (delta < -0.5f) delta += 1f;
-        if (delta > 0.5f) delta -= 1f;
-
-        return delta >= -0.01f;
     }
 }
