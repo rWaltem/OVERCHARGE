@@ -9,9 +9,6 @@ OVERCHARGE is a fast-paced arcade racing game inspired by F-Zero GX and Mario Ka
 - Race Position
 	- ( ) Get amount of laps needed by TrackData Object 
 	- (x) need to rework how laps are counted
-		- distance / length gives weird data
-		- hard to work with lapcount and racers\[i].laps
-		- 
 - Look into making procedural tracks
 	- (x) Gen Surface
 	- ( ) Gen Walls
