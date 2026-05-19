@@ -32,7 +32,7 @@ public class ShipManager : MonoBehaviour
     public GameObject characterModelPrefab;
     public GameObject shipModelPrefab;
     public Vector3 shipModelScaleFactor;
-
+    public Vector3 shipModelRotationOffset;
     public Vector3 shipModelTargetLocalPosition;
     public Quaternion shipModelTargetLocalRotation;
 
@@ -135,6 +135,7 @@ public class ShipManager : MonoBehaviour
         shipModelPrefab      = currentShip.shipModelPrefab;
 
         shipModelScaleFactor = currentShip.shipModelScaleFactor;
+        shipModelRotationOffset = currentShip.shipModelRotationOffset;
 
         Debug.Log("Stats read and set from player selection");
     }
@@ -153,8 +154,8 @@ public class ShipManager : MonoBehaviour
         // add model to game
         shipModel = Instantiate(shipModelPrefab, transform);
         shipModel.transform.localScale = shipModelScaleFactor;
-        shipModel.transform.localPosition = shipModelTargetLocalPosition;
-        shipModel.transform.localRotation = shipModelTargetLocalRotation;
+        shipModel.transform.localPosition = new Vector3(0, 0, 0);
+        shipModel.transform.localRotation = Quaternion.Euler(shipModelRotationOffset);
 
         Debug.Log("Instantiated ship model");
 
