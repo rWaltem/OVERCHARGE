@@ -4,15 +4,19 @@ OVERCHARGE is a fast-paced arcade racing game inspired by F-Zero GX and Mario Ka
 ## Bugs
 - Player should stop quicker when no buttons are pressed
 - Player gets stuck on walls
-- Forward thrust gets confused when on charge pad
+- Forward thrust gets confused when on charge pad?
 ## Next Steps
 - Race Position
-	- ( ) Get amount of laps needed by TrackData Object 
+	- (x) Get amount of laps needed by TrackData Object 
 	- (x) need to rework how laps are counted
+	- (x) finish state after all laps are completed
 - Look into making procedural tracks
 	- (x) Gen Surface
 	- ( ) Gen Walls
-- Simple CPU Racer AI
+- ( ) Simple CPU Racer AI
+- ( ) Start boost
+- ( ) Set UI pos. to player pos
+- ( ) Make UI lap counter
 ## Development Path
 
 ### First full through line (Pre-Alpha)

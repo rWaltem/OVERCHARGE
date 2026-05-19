@@ -13,10 +13,12 @@ public class Racer
 
 public class RacePositionTracker : MonoBehaviour
 {
+    public EventManager eventManager;
     public bool trackPositions = false;
     public Racer[] racers;
     public SplineContainer splineContainer;
     public bool isMobius = false;
+    public int totalLaps = 1;
 
     [Range(0.001f, 0.2f)]
     public float searchWindow = 0.05f;
@@ -112,6 +114,11 @@ public class RacePositionTracker : MonoBehaviour
 
         // Rank by total distance travelled (highest = furthest ahead)
         Array.Sort(racers, (a, b) => b.distance.CompareTo(a.distance));
+
+        if (racers[0].laps >= totalLaps)
+        {
+            eventManager.raceEnded = true;
+        }
     }
 
     static float Wrap01(float t)
