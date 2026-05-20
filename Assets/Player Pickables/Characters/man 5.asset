@@ -17,3 +17,4 @@ MonoBehaviour:
   specialty: n/a
   characterModelPrefab: {fileID: 919132149155446097, guid: e4ff92b670a8f594db195325b4202971, type: 3}
   icon: {fileID: 21300000, guid: c775882f03b10d4499a37ec1399cd382, type: 3}
+  previewSize: 500

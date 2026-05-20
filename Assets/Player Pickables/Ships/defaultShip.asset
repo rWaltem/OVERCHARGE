@@ -25,3 +25,4 @@ MonoBehaviour:
   shipModelScaleFactor: {x: 1, y: 1, z: 1}
   shipModelRotationOffset: {x: -90, y: 0, z: 0}
   icon: {fileID: 0}
+  previewSize: 75

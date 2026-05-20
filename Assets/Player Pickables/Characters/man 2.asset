@@ -15,5 +15,6 @@ MonoBehaviour:
   characterName: Man 2
   recoverySpeed: 5
   specialty: n/a
-  characterModelPrefab: {fileID: 919132149155446097, guid: e4ff92b670a8f594db195325b4202971, type: 3}
+  characterModelPrefab: {fileID: 919132149155446097, guid: a8b1ed953e571eb4aba85253a9234bfa, type: 3}
   icon: {fileID: 21300000, guid: 6d25b6536e6d6d7489393792f09a5df5, type: 3}
+  previewSize: 500

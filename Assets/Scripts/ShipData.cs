@@ -24,4 +24,5 @@ public class ShipData : ScriptableObject
     public Vector3 shipModelScaleFactor;
     public Vector3 shipModelRotationOffset;
     public Sprite icon;
+    public float previewSize;
 }

@@ -2,16 +2,16 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CharacterGridSelector : MonoBehaviour
+public class ShipGridSelector : MonoBehaviour
 {
-    public CharacterData charData;
+    public ShipData shipData;
     public TextMeshProUGUI buttonText;
     public Image buttonBackground;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        buttonText.text = charData.name;
-        buttonBackground.sprite = charData.icon;
+        buttonText.text = shipData.name;
+        buttonBackground.sprite = shipData.icon;
     }
 }

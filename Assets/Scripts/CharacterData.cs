@@ -15,4 +15,5 @@ public class CharacterData : ScriptableObject
     [Header("Model")]
     public GameObject characterModelPrefab;
     public Sprite icon;
+    public float previewSize;
 }
