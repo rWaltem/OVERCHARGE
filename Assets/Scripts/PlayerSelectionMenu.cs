@@ -16,6 +16,15 @@ public class PlayerSelectionMenu : MonoBehaviour
     [SerializeField] private string mainMenuSceneName;
     [SerializeField] private string devSceneName;
 
+    [SerializeField] private GameObject charSelect;
+    [SerializeField] private GameObject shipSelect;
+
+    void Start()
+    {
+        charSelect.SetActive(true);
+        shipSelect.SetActive(false);
+    }
+
 
     public void MainMenu()
     {

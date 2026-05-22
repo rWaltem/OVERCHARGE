@@ -18,12 +18,15 @@ public class RacePositionTracker : MonoBehaviour
     public Racer[] racers;
     public SplineContainer splineContainer;
     public bool isMobius = false;
-    public int totalLaps = 1;
+    public int totalLaps = 3;
 
     [Range(0.001f, 0.2f)]
     public float searchWindow = 0.05f;
 
     public float length; // Physical spline arc length
+
+    public int playerLaps;
+    public int playerPos;
 
     private float[] lastT;
     private int[] splineLapCount;   // Crossings of t=0 on the spline
@@ -115,9 +118,21 @@ public class RacePositionTracker : MonoBehaviour
         // Rank by total distance travelled (highest = furthest ahead)
         Array.Sort(racers, (a, b) => b.distance.CompareTo(a.distance));
 
-        if (racers[0].laps >= totalLaps)
+        // Set player laps and position after sort
+        for (int i = 0; i < racers.Length; i++)
         {
-            eventManager.raceEnded = true;
+            if (racers[i].ship.gameObject.layer == LayerMask.NameToLayer("Player"))
+            {
+                playerLaps = racers[i].laps + 1;
+                playerPos = i + 1; // 1-based position
+
+                if (playerLaps >= totalLaps + 1)
+                {
+                    eventManager.raceEnded = true;
+                }
+
+                break;
+            }
         }
     }
 

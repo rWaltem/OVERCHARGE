@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class CharacterGridSelector : MonoBehaviour
 {
+    public PlayerSelectionObject playerSelectionObject;
     public CharacterData charData;
     public TextMeshProUGUI buttonText;
     public Image buttonBackground;
@@ -13,5 +14,12 @@ public class CharacterGridSelector : MonoBehaviour
     {
         buttonText.text = charData.name;
         buttonBackground.sprite = charData.icon;
+
+        playerSelectionObject.character = null;
+    }
+
+    public void Select()
+    {
+        playerSelectionObject.character = charData;
     }
 }

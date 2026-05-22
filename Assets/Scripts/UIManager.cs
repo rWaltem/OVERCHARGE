@@ -9,20 +9,24 @@ public class UIManager : MonoBehaviour
     public Slider chargeSlider;
     public TextMeshProUGUI speedText;
     public TextMeshProUGUI racePos;
+    public TextMeshProUGUI lapCount;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private RacePositionTracker rpt;
+    void Awake()
     {
-        chargeSlider.maxValue = playerShipManager.maxCharge;
+        rpt = FindObjectsByType<RacePositionTracker>()[0];
     }
 
     // Update is called once per frame
     void Update()
     {
         // charge value
+        chargeSlider.maxValue = playerShipManager.maxCharge;
         chargeSlider.value = playerShipManager.currentCharge;
 
         // speed value
         speedText.text = $"MPH: {math.round(playerShipManager.currentSpeed)}";
+        racePos.text = $"Pos: {rpt.playerPos}";
+        lapCount.text = $"Lap: {rpt.playerLaps}";
     }
 }

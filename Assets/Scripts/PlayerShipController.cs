@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerShipController : MonoBehaviour
 {
+    public PlayerSelectionObject playerSelectionObject;
+
     [Header("Player Inputs")]
     public float throttle;
     public float brake;
@@ -21,12 +23,16 @@ public class PlayerShipController : MonoBehaviour
     {
         playerControls = new InputSystem_Actions();
         Debug.Log("New player input system");
+
+        shipManager = GetComponent<ShipManager>();
+        Debug.Log("Player has shipManager");
     }
 
     void Start()
     {
-        shipManager = GetComponent<ShipManager>();
-        Debug.Log("Player has shipManager");
+        // set character selection
+        shipManager.currentCharacter = playerSelectionObject.character;
+        shipManager.currentShip      = playerSelectionObject.ship;        
     }
 
     void OnEnable()

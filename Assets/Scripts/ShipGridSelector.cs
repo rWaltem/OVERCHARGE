@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class ShipGridSelector : MonoBehaviour
 {
+    public PlayerSelectionObject playerSelectionObject;
     public ShipData shipData;
     public TextMeshProUGUI buttonText;
     public Image buttonBackground;
@@ -13,5 +14,12 @@ public class ShipGridSelector : MonoBehaviour
     {
         buttonText.text = shipData.name;
         buttonBackground.sprite = shipData.icon;
+
+        playerSelectionObject.ship = null;
+    }
+
+    public void Select()
+    {
+        playerSelectionObject.ship = shipData;
     }
 }

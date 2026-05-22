@@ -1,6 +1,4 @@
-using System.Reflection.Emit;
-using Unity.Mathematics;
-using UnityEditor.ShaderGraph.Internal;
+using System.Collections;
 using UnityEngine;
 
 public class ShipManager : MonoBehaviour
@@ -64,6 +62,7 @@ public class ShipManager : MonoBehaviour
     private float recoveryTime;
     public float currentSpeed = 0f;
     private float currentSteer = 0f;
+    private bool isInitialized = false;
 
     // PID height
     private float shipHeight = 2.5f;
@@ -143,15 +142,21 @@ public class ShipManager : MonoBehaviour
     /* Awake is called when the script instance is being loaded */
     void Awake()
     {
-        GetSelection();
-
         rb = GetComponent<Rigidbody>();
     }
 
     /* Start is called just before any of the Update methods is called the first time */
     void Start()
     {
-        // add model to game
+        StartCoroutine(WaitForSelectionThenInit());
+    }
+
+    IEnumerator WaitForSelectionThenInit()
+    {
+        yield return new WaitUntil(() => currentCharacter != null && currentShip != null);
+
+        GetSelection();
+
         shipModel = Instantiate(shipModelPrefab, transform);
         shipModel.transform.localScale = shipModelScaleFactor;
         shipModel.transform.localPosition = new Vector3(0, 0, 0);
@@ -161,6 +166,9 @@ public class ShipManager : MonoBehaviour
 
         currentCharge = maxCharge / 2;
         Debug.Log("Set start charge");
+
+        isInitialized = true;
+        Debug.Log("Player initialized and ready");
     }
 
     /* Controls charge stuff */
@@ -272,6 +280,8 @@ public class ShipManager : MonoBehaviour
        ALL PHYSICS EVENTS FOR SHIP GOES HERE */
     void FixedUpdate()
     {
+        if (!isInitialized) return;
+
         rb.linearDamping = 2;
 
         RaycastHit hit;

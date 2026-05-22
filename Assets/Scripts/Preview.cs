@@ -2,18 +2,16 @@ using UnityEngine;
 
 public class Preview : MonoBehaviour
 {
+    public PlayerSelectionObject playerSelectionObject;
+    
     public void PreviewCharacter(CharacterData charData)
     {
-
         // remove all chilren of gameobject
         foreach (Transform child in transform)
         {
             //Debug.Log("Removing children");
             Destroy(child.gameObject);
         }
-
-        // spawn new preview model as child
-        //Debug.Log("Spawn new preview");
 
         GameObject preview = Instantiate(
             charData.characterModelPrefab,
