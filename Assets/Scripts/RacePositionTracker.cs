@@ -128,7 +128,10 @@ public class RacePositionTracker : MonoBehaviour
 
                 if (playerLaps >= totalLaps + 1)
                 {
-                    eventManager.raceEnded = true;
+                    if (playerLaps >= totalLaps + 1)
+                    {
+                        eventManager.currentGameState = EventManager.GameState.Summary;
+                    }
                 }
 
                 break;

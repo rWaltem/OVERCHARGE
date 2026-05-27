@@ -63,6 +63,7 @@ public class ShipManager : MonoBehaviour
     public float currentSpeed = 0f;
     private float currentSteer = 0f;
     private bool isInitialized = false;
+    private EventManager eventManager;
 
     // PID height
     private float shipHeight = 2.5f;
@@ -75,7 +76,7 @@ public class ShipManager : MonoBehaviour
     // is set by other scripts to control ship functions
     public void SetInput(float throttle, float brake, float steering, bool boost)
     {
-        if (isJammed)
+        if (isJammed || eventManager.currentGameState != EventManager.GameState.Runtime)
         {
             throttleInput = 0;
             brakeInput = 0;
@@ -136,7 +137,7 @@ public class ShipManager : MonoBehaviour
         shipModelScaleFactor = currentShip.shipModelScaleFactor;
         shipModelRotationOffset = currentShip.shipModelRotationOffset;
 
-        Debug.Log("Stats read and set from player selection");
+        Debug.Log("Stats read and set from selection");
     }
 
     /* Awake is called when the script instance is being loaded */
@@ -167,8 +168,11 @@ public class ShipManager : MonoBehaviour
         currentCharge = maxCharge / 2;
         Debug.Log("Set start charge");
 
+        eventManager = GameObject.FindWithTag("Game Manager").GetComponent<EventManager>();
+        Debug.Log("Get EventManager");
+
         isInitialized = true;
-        Debug.Log("Player initialized and ready");
+        Debug.Log("Initialized and ready");
     }
 
     /* Controls charge stuff */

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 363431f1e4d3a3d4d9cbfc44546febbb, type: 3}
+  m_Name: Burn Notice
+  m_EditorClassIdentifier: Assembly-CSharp::ShipData
+  shipName: Burn Notice
+  speed: 5
+  accel: 5
+  handling: 5
+  weight: 5
+  maxCharge: 5
+  rechargeRate: 5
+  specialty: n/a
+  boostSpeed: 1.5
+  shipModelPrefab: {fileID: 919132149155446097, guid: a8b1ed953e571eb4aba85253a9234bfa, type: 3}
+  shipModelScaleFactor: {x: 1, y: 1, z: 1}
+  shipModelRotationOffset: {x: -90, y: 0, z: 0}
+  icon: {fileID: 0}
+  previewSize: 75

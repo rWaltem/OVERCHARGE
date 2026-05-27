@@ -8,6 +8,7 @@ public class RacerSpawner : MonoBehaviour
     public int playerStartNum = 0;
     public GameObject playerPrefab;
     public GameObject CPURacerPrefab;
+    public bool doneSpawning = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void SpawnRacers()
@@ -25,5 +26,7 @@ public class RacerSpawner : MonoBehaviour
                 Instantiate(CPURacerPrefab, gridPos[i].position, gridPos[i].rotation);
             }
         }
+
+        doneSpawning = true;
     }
 }

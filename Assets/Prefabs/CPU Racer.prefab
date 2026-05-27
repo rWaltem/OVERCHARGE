@@ -101,6 +101,13 @@ MonoBehaviour:
   currentShip: {fileID: 11400000, guid: 8803c57a85d103a4baea7c66860c79a6, type: 2}
   gameDatabase: {fileID: 11400000, guid: b5cb228f620a04a4ca4e3cc595ecfcf2, type: 2}
   randomize: 1
+  lookAhead: 15
+  curveTightness: 5
+  boostLookAhead: 60
+  boostCurveTightness: 1
+  collisionAvoidance: 10
+  maxSteeringAngle: 30
+  steeringSensitivity: 3
 --- !u!114 &8932186217720027153
 MonoBehaviour:
   m_ObjectHideFlags: 0

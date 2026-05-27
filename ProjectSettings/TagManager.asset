@@ -6,6 +6,9 @@ TagManager:
   tags:
   - CPU
   - Racer
+  - Race Line
+  - Game Manager
+  - UI Manager
   layers:
   - Default
   - TransparentFX
@@ -17,7 +20,7 @@ TagManager:
   - Wall
   - Player
   - CPU
-  - 
+  - Racing Line
   - 
   - 
   - 

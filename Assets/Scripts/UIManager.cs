@@ -5,28 +5,110 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    [Header("UI Groups")]
+    public GameObject loadingGroup;
+    public GameObject introGroup;
+    public GameObject runtimeGroup;
+    public GameObject summaryGroup;
+
+    [Header("Runtime UI")]
     public ShipManager playerShipManager;
     public Slider chargeSlider;
     public TextMeshProUGUI speedText;
     public TextMeshProUGUI racePos;
     public TextMeshProUGUI lapCount;
 
+    private GameObject gameManager;
+    private EventManager eventManager;
     private RacePositionTracker rpt;
-    void Awake()
+
+    private void Awake()
     {
-        rpt = FindObjectsByType<RacePositionTracker>()[0];
+        gameManager = GameObject.FindWithTag("Game Manager");
+        eventManager = gameManager.GetComponent<EventManager>();
+        rpt = gameManager.GetComponent<RacePositionTracker>();
+
+        loadingGroup.SetActive(false);
+        introGroup.SetActive(false);
+        runtimeGroup.SetActive(false);
+        summaryGroup.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    void Loading()
     {
-        // charge value
+        if (loadingGroup.activeInHierarchy != true)
+        {
+            loadingGroup.SetActive(true);
+            introGroup.SetActive(false);
+            runtimeGroup.SetActive(false);
+            summaryGroup.SetActive(false);
+        }
+    }
+
+    void Intro()
+    {
+        if (introGroup.activeInHierarchy != true) 
+        {
+            loadingGroup.SetActive(false);
+            introGroup.SetActive(true);
+            runtimeGroup.SetActive(false);
+            summaryGroup.SetActive(false);
+        }
+    }
+
+    void Runtime()
+    {
+        if (runtimeGroup.activeInHierarchy != true)
+        {
+            loadingGroup.SetActive(false);
+            introGroup.SetActive(false);
+            runtimeGroup.SetActive(true);
+            summaryGroup.SetActive(false);
+        }
+
         chargeSlider.maxValue = playerShipManager.maxCharge;
         chargeSlider.value = playerShipManager.currentCharge;
 
-        // speed value
         speedText.text = $"MPH: {math.round(playerShipManager.currentSpeed)}";
         racePos.text = $"Pos: {rpt.playerPos}";
         lapCount.text = $"Lap: {rpt.playerLaps}";
+    }
+
+    void Summary()
+    {
+        if (summaryGroup.activeInHierarchy != true) 
+        {
+            loadingGroup.SetActive(false);
+            introGroup.SetActive(false);
+            runtimeGroup.SetActive(false);
+            summaryGroup.SetActive(true);
+        }
+    }
+
+
+    private void Update()
+    {
+        switch (eventManager.currentGameState)
+        {
+            case EventManager.GameState.Loading:
+                // loading screen UI
+                Loading();
+                break;
+
+             case EventManager.GameState.Intro:
+                // Intro UI
+                Intro();
+                break;
+            
+            case EventManager.GameState.Runtime:
+                // Runtime UI
+                Runtime();
+                break;
+            
+            case EventManager.GameState.Summary:
+                // end race summary UI
+                Summary();
+                break;
+        }
     }
 }
