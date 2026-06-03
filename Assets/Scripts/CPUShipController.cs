@@ -36,14 +36,19 @@ public class CPUShipController : MonoBehaviour
 
     void RandomizeSelection()
     {
-        int char_n = gameDatabase.characters.Count();
-        int ship_n = gameDatabase.ships.Count();
+        int char_n = gameDatabase.characters.Count;
+        int ship_n = gameDatabase.ships.Count;
 
         int char_r = UnityEngine.Random.Range(0, char_n);
         int ship_r = UnityEngine.Random.Range(0, ship_n);
 
-        shipManager.currentCharacter = gameDatabase.characters[char_r];
-        shipManager.currentShip = gameDatabase.ships[ship_r];
+        currentCharacter = gameDatabase.characters[char_r];
+        currentShip = gameDatabase.ships[ship_r];
+
+        shipManager.currentCharacter = currentCharacter;
+        shipManager.currentShip = currentShip;
+
+
     }
 
     void GetRaceLine()

@@ -24,6 +24,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7bc4b4570ef37964d9b841f8e15b0027, type: 2}
   - {fileID: 11400000, guid: 760e10a47a2482746966267233945c6a, type: 2}
   ships:
+  - {fileID: 11400000, guid: 7809e3d188fd4cd4f9d263952de75b2d, type: 2}
   - {fileID: 11400000, guid: 8803c57a85d103a4baea7c66860c79a6, type: 2}
+  - {fileID: 11400000, guid: d4acb788315204847961510061c039ee, type: 2}
+  - {fileID: 11400000, guid: 520351c513676c846be67dae787ca468, type: 2}
+  - {fileID: 11400000, guid: ee44ab00213f65e428f32dca9ae09734, type: 2}
   tracks:
   - {fileID: 11400000, guid: 2e14a7c93b75797479971780a50394f7, type: 2}

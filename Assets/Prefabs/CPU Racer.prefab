@@ -103,7 +103,7 @@ MonoBehaviour:
   randomize: 1
   refreshRate: 15
   lookAhead: 0.5
-  steeringSensitivity: 1
+  steeringSensitivity: 2.5
 --- !u!114 &8932186217720027153
 MonoBehaviour:
   m_ObjectHideFlags: 0
