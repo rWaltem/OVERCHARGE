@@ -12,15 +12,22 @@ public class CPUShipController : MonoBehaviour
     public bool randomize = true;
 
     [Header("AI Tuning")]
-    public float lookAhead = 15f;
-    public float steeringSensitivity = 2f;
-    public float waypointReach = 2f;
+    public int refreshRate = 20; // updates per second
+    public float lookAhead = 3f;
+    public float steeringSensitivity = 4f;
 
     private ShipManager shipManager;
     private SplineContainer splineContainer;
     private Spline raceLine;
 
     private float currentT;
+
+    // Refresh timer
+    private float refreshTimer;
+
+    // Debug
+    private Vector3 debugNearestPoint;
+    private Vector3 debugTargetPoint;
 
     void Awake()
     {
@@ -41,9 +48,12 @@ public class CPUShipController : MonoBehaviour
 
     void GetRaceLine()
     {
-        GameObject lineObj = GameObject.FindGameObjectWithTag("Race Line");
+        GameObject lineObj =
+            GameObject.FindGameObjectWithTag("Race Line");
 
-        splineContainer = lineObj.GetComponent<SplineContainer>();
+        splineContainer =
+            lineObj.GetComponent<SplineContainer>();
+
         raceLine = splineContainer.Spline;
     }
 
@@ -62,7 +72,12 @@ public class CPUShipController : MonoBehaviour
         GetRaceLine();
     }
 
-    void UpdateInputs(float throttle, float brake, float steering, bool boost)
+    void UpdateInputs(
+        float throttle,
+        float brake,
+        float steering,
+        bool boost
+    )
     {
         shipManager.SetInput(
             throttle: throttle,
@@ -74,43 +89,47 @@ public class CPUShipController : MonoBehaviour
 
     void FollowSpline()
     {
-        if (raceLine == null)
+        if (splineContainer == null)
             return;
 
         Vector3 shipPos = transform.position;
 
-        // Find closest point on spline
+        // Find nearest point on spline
         SplineUtility.GetNearestPoint(
             raceLine,
             shipPos,
             out float3 nearestPoint,
-            out currentT
+            out float nearestT
         );
 
-        // Look ahead on spline
-        float targetT = currentT + (lookAhead / raceLine.Count);
+        currentT = nearestT;
 
-        if (targetT > 1f)
-            targetT -= 1f;
+        debugNearestPoint = nearestPoint;
 
-        Vector3 targetPoint = splineContainer.EvaluatePosition(targetT);
+        // Look ahead
+        Vector3 targetPoint = GetLookAheadPoint(lookAhead);
 
-        // Direction to target
-        Vector3 localTarget =
-            transform.InverseTransformPoint(targetPoint);
+        // Convert target to local space
+        Vector3 localTarget = transform.InverseTransformPoint(targetPoint);
 
         // Steering
         float steering =
-            Mathf.Clamp(localTarget.x * steeringSensitivity, -1f, 1f);
+            Mathf.Clamp(
+                (localTarget.x / localTarget.magnitude)
+                * steeringSensitivity,
+                -1f,
+                1f
+            );
 
-        // Slow down slightly for hard turns
+        // Speed control
         float throttle = 1f;
         float brake = 0f;
 
-        if (Mathf.Abs(steering) > 0.7f)
-        {
-            throttle = 0.5f;
-        }
+        if (Mathf.Abs(steering) > 0.5f)
+            throttle = 0.6f;
+
+        if (Mathf.Abs(steering) > 0.8f)
+            throttle = 0.3f;
 
         UpdateInputs(
             throttle,
@@ -120,8 +139,69 @@ public class CPUShipController : MonoBehaviour
         );
     }
 
+    Vector3 GetLookAheadPoint(float distanceAhead)
+    {
+        if (splineContainer == null)
+            return transform.position;
+
+        // Get nearest spline position
+        SplineUtility.GetNearestPoint(
+            raceLine,
+            transform.position,
+            out float3 nearestPoint,
+            out float nearestT
+        );
+
+        currentT = nearestT;
+
+        // Convert distance into normalized spline movement
+        float targetT = currentT + (distanceAhead * 0.01f);
+
+        // Loop spline
+        if (targetT > 1f)
+            targetT -= 1f;
+
+        Vector3 targetPoint =
+            splineContainer.EvaluatePosition(targetT);
+
+        // Debug
+        debugNearestPoint = nearestPoint;
+        debugTargetPoint = targetPoint;
+
+        return targetPoint;
+    }
+
     void Update()
     {
-        FollowSpline();
+        if (refreshRate <= 0)
+        {
+            FollowSpline();
+            return;
+        }
+
+        refreshTimer += Time.deltaTime;
+
+        float refreshInterval = 1f / refreshRate;
+
+        if (refreshTimer >= refreshInterval)
+        {
+            refreshTimer = 0f;
+            FollowSpline();
+        }
+    }
+
+    void OnDrawGizmos()
+    {
+        // Green = closest spline point
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere(debugNearestPoint, 0.5f);
+
+        // Red = steering target
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(debugTargetPoint, 0.7f);
+
+        // Yellow line = where AI is steering
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(transform.position, debugTargetPoint);
     }
 }
