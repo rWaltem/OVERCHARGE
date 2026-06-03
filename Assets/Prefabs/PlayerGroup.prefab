@@ -465,7 +465,7 @@ GameObject:
   - component: {fileID: 2364277485362371199}
   - component: {fileID: 6761302062835375035}
   m_Layer: 0
-  m_Name: CinemachineCamera
+  m_Name: PlayerCinemachineCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -499,7 +499,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
   Priority:
-    Enabled: 0
+    Enabled: 1
     m_Value: 0
   OutputChannel: 1
   StandbyUpdate: 2
@@ -1297,8 +1297,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7571359771138645450}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.1719946, y: 0.00000031036083, z: -0.0000000541879, w: 0.9850979}
-  m_LocalPosition: {x: 0, y: 5.25, z: -7}
+  m_LocalRotation: {x: 0.010184301, y: 0.98874116, z: -0.12616138, w: 0.07981554}
+  m_LocalPosition: {x: -735, y: 460.7, z: 2147.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1335,11 +1335,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 8000
-  field of view: 75
+  near clip plane: 0.1
+  far clip plane: 5000
+  field of view: 60.000004
   orthographic: 0
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

@@ -26,17 +26,17 @@ public class EventManager : MonoBehaviour
     {
         // spawn racers
         racerSpawner.SpawnRacers();
-
-        // initalize tracking logic
-        RPT.InitTracking();
-        RPT.totalLaps = trackData.laps;
     }
 
     void Update()
     {   
         // set to intro if done loading
         if (currentGameState == GameState.Loading & racerSpawner.doneSpawning == true)
-            currentGameState = GameState.Intro; 
+            currentGameState = GameState.Intro;
+            
+            // initalize tracking logic
+            RPT.InitTracking();
+            RPT.totalLaps = trackData.laps;
 
         switch (currentGameState)
         {
