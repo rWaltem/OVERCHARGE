@@ -10,7 +10,8 @@ public class EventManager : MonoBehaviour
         Loading,
         Intro,
         Runtime,
-        Summary
+        Summary,
+        Failed
     }
 
     [Header("Game State")]
@@ -51,6 +52,9 @@ public class EventManager : MonoBehaviour
                 break;
 
             case GameState.Summary:
+                break;
+            
+            case GameState.Failed:
                 break;
         }
     }

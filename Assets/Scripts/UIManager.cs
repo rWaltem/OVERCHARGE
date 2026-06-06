@@ -1,5 +1,6 @@
 using TMPro;
 using Unity.Mathematics;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,7 @@ public class UIManager : MonoBehaviour
     public GameObject introGroup;
     public GameObject runtimeGroup;
     public GameObject summaryGroup;
+    public GameObject failGroup;
 
     [Header("Runtime UI")]
     public ShipManager playerShipManager;
@@ -32,6 +34,8 @@ public class UIManager : MonoBehaviour
         introGroup.SetActive(false);
         runtimeGroup.SetActive(false);
         summaryGroup.SetActive(false);
+        failGroup.SetActive(false);
+
     }
 
     void Loading()
@@ -42,6 +46,7 @@ public class UIManager : MonoBehaviour
             introGroup.SetActive(false);
             runtimeGroup.SetActive(false);
             summaryGroup.SetActive(false);
+            failGroup.SetActive(false);
         }
     }
 
@@ -53,6 +58,7 @@ public class UIManager : MonoBehaviour
             introGroup.SetActive(true);
             runtimeGroup.SetActive(false);
             summaryGroup.SetActive(false);
+            failGroup.SetActive(false);
         }
     }
 
@@ -64,6 +70,7 @@ public class UIManager : MonoBehaviour
             introGroup.SetActive(false);
             runtimeGroup.SetActive(true);
             summaryGroup.SetActive(false);
+            failGroup.SetActive(false);
         }
 
         chargeSlider.maxValue = playerShipManager.maxCharge;
@@ -82,6 +89,20 @@ public class UIManager : MonoBehaviour
             introGroup.SetActive(false);
             runtimeGroup.SetActive(false);
             summaryGroup.SetActive(true);
+            failGroup.SetActive(false);
+
+        }
+    }
+
+    void Failed()
+    {
+        if (failGroup.activeInHierarchy != true)
+        {
+            loadingGroup.SetActive(false);
+            introGroup.SetActive(false);
+            runtimeGroup.SetActive(false);
+            summaryGroup.SetActive(false);
+            failGroup.SetActive(true);
         }
     }
 
@@ -108,6 +129,11 @@ public class UIManager : MonoBehaviour
             case EventManager.GameState.Summary:
                 // end race summary UI
                 Summary();
+                break;
+            
+            case EventManager.GameState.Failed:
+                // Failed
+                Failed();
                 break;
         }
     }

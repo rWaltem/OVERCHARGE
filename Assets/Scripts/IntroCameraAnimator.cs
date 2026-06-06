@@ -1,31 +1,61 @@
+using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
 
-public class IntroCameraAnimator : MonoBehaviour
+public class IntroCameraManager : MonoBehaviour
 {
-    public CinemachineSplineDolly dolly;
-    public GameObject nextCamera;
+    [System.Serializable]
+    public class IntroCamera
+    {
+        public GameObject cameraObject;
+        public CinemachineSplineDolly dolly;
+        public float duration = 5f;
+    }
+
+    public List<IntroCamera> cameras = new();
     public EventManager eventManager;
-    public float seconds = 5f;
-    private float secondsPast;
+
+    private int currentCameraIndex = 0;
+    private float timer = 0f;
+
+    void Start()
+    {
+        // Enable only the first camera
+        for (int i = 0; i < cameras.Count; i++)
+        {
+            cameras[i].cameraObject.SetActive(i == 0);
+        }
+    }
 
     void Update()
     {
-        if (secondsPast >= seconds)
+        if (currentCameraIndex >= cameras.Count)
+            return;
+
+        IntroCamera current = cameras[currentCameraIndex];
+
+        timer += Time.deltaTime;
+
+        if (current.dolly != null)
         {
-            if (nextCamera != null)
+            current.dolly.CameraPosition = timer / current.duration;
+        }
+
+        if (timer >= current.duration)
+        {
+            current.cameraObject.SetActive(false);
+
+            currentCameraIndex++;
+            timer = 0f;
+
+            if (currentCameraIndex < cameras.Count)
             {
-                nextCamera.SetActive(true);
-            } else
+                cameras[currentCameraIndex].cameraObject.SetActive(true);
+            }
+            else
             {
                 eventManager.currentGameState = EventManager.GameState.Runtime;
             }
-            
-            gameObject.SetActive(false);
         }
-
-        dolly.CameraPosition = secondsPast / seconds;
-
-        secondsPast += Time.deltaTime;
     }
 }
