@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -18,6 +19,32 @@ public class IntroCameraManager : MonoBehaviour
     private int currentCameraIndex = 0;
     private float timer = 0f;
 
+    private InputSystem_Actions playerControls;
+    private InputAction skipInput;
+
+    void Awake()
+    {
+        playerControls = new InputSystem_Actions();
+        Debug.Log("New player input system");
+    }
+
+    void OnEnable()
+    {
+        skipInput = playerControls.Player.Skip;
+        skipInput.Enable();
+        skipInput.performed += OnSkipIntro;
+    }
+
+    void OnDisable()
+    {
+        skipInput.Disable();
+    }
+
+    private void OnSkipIntro(InputAction.CallbackContext ctx)
+    {
+        FinishIntro();
+    }
+
     void Start()
     {
         // Enable only the first camera
@@ -27,8 +54,28 @@ public class IntroCameraManager : MonoBehaviour
         }
     }
 
+    void FinishIntro()
+    {
+        foreach (var cam in cameras)
+        {
+            if (cam.cameraObject != null)
+                cam.cameraObject.SetActive(false);
+        }
+
+        currentCameraIndex = cameras.Count;
+        eventManager.currentGameState = EventManager.GameState.Runtime;
+    }
+
     void Update()
     {
+        // skip logic
+        bool boost = skipInput.ReadValue<float>() > 0;
+        if (boost)
+        {
+            FinishIntro();
+            return;
+        }
+
         if (currentCameraIndex >= cameras.Count)
             return;
 
@@ -54,7 +101,7 @@ public class IntroCameraManager : MonoBehaviour
             }
             else
             {
-                eventManager.currentGameState = EventManager.GameState.Runtime;
+                FinishIntro();
             }
         }
     }

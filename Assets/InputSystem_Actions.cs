@@ -136,6 +136,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Skip"",
+                    ""type"": ""Button"",
+                    ""id"": ""b9890b9b-e768-4800-9cf7-85e20445b3bc"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -290,6 +299,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
                     ""action"": ""Boost"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""19edaa2c-1948-4e9c-b598-bdd9d05f7c5f"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Skip"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -882,6 +902,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Steering = m_Player.FindAction("Steering", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Boost = m_Player.FindAction("Boost", throwIfNotFound: true);
+        m_Player_Skip = m_Player.FindAction("Skip", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -980,6 +1001,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Steering;
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Boost;
+    private readonly InputAction m_Player_Skip;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1011,6 +1033,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Boost".
         /// </summary>
         public InputAction @Boost => m_Wrapper.m_Player_Boost;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Skip".
+        /// </summary>
+        public InputAction @Skip => m_Wrapper.m_Player_Skip;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1052,6 +1078,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Boost.started += instance.OnBoost;
             @Boost.performed += instance.OnBoost;
             @Boost.canceled += instance.OnBoost;
+            @Skip.started += instance.OnSkip;
+            @Skip.performed += instance.OnSkip;
+            @Skip.canceled += instance.OnSkip;
         }
 
         /// <summary>
@@ -1078,6 +1107,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Boost.started -= instance.OnBoost;
             @Boost.performed -= instance.OnBoost;
             @Boost.canceled -= instance.OnBoost;
+            @Skip.started -= instance.OnSkip;
+            @Skip.performed -= instance.OnSkip;
+            @Skip.canceled -= instance.OnSkip;
         }
 
         /// <summary>
@@ -1413,6 +1445,13 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnBoost(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Skip" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSkip(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
