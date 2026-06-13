@@ -1,7 +1,7 @@
 using UnityEngine.InputSystem;
 using UnityEngine;
 using UnityEngine.Rendering.RenderGraphModule;
-using UnityEditor.ShaderGraph.Internal;
+//using UnityEditor.ShaderGraph.Internal;
 using Unity.Mathematics;
 
 public class ShipController : MonoBehaviour

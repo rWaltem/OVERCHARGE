@@ -1,5 +1,5 @@
 using Unity.Cinemachine;
-using Unity.Cinemachine.Editor;
+//using Unity.Cinemachine.Editor;
 using UnityEngine;
 
 public class cameraSpeedEffect : MonoBehaviour
